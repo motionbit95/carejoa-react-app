@@ -101,52 +101,134 @@ const Step1 = ({ setIsChecked }) => {
   );
 };
 
-const Step2 = ({ form }) => {
-  const [selectedType, setSelectedType] = useState("");
+const Step2 = (props) => {
+  const { form } = props;
+  const [selectedAccountType, setSelectedAccountType] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
+  const onSearch = () => {
+    setModalOpen(true);
+  };
+
+  const onOK = () => {
+    setModalOpen(false);
+  };
+
   const handleAccountTypeChange = (type) => {
-    setSelectedType(type);
-    form.resetFields();
-    form.setFieldsValue({ type });
+    setSelectedAccountType(type);
+    form.setFieldsValue({
+      type,
+      name: null,
+      organization_name: null,
+      email: null,
+      password: null,
+      confirm_password: null,
+    });
   };
 
   return (
-    <FormContainer form={form}>
-      <BodyText>회원 유형을 선택해주세요.</BodyText>
-      <AccountTypeChoice
-        selectedType={selectedType}
-        onChange={handleAccountTypeChange}
+    <Form
+      style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+      form={form}
+      requiredMark={false}
+    >
+      <Form.Item
+        style={{ margin: "0" }}
+        name={"type"}
+        rules={[{ required: true, message: "이름을 입력해주세요!" }]}
+        label={<div>회원 유형을 선택해주세요.</div>}
+      >
+        <Row gutter={[16, 16]} style={{ width: "100%" }}>
+          <Col span={12} style={{ padding: "0 8px" }}>
+            <Choice
+              selected={selectedAccountType === "person"}
+              onClick={() => handleAccountTypeChange("person")}
+            >
+              <Image
+                preview={false}
+                src="/images/signup1.svg"
+                alt="Logo"
+                height={64}
+              />
+              <div>개인 회원</div>
+            </Choice>
+          </Col>
+          <Col span={12} style={{ padding: "0 8px" }}>
+            <Choice
+              selected={selectedAccountType === "organization"}
+              onClick={() => handleAccountTypeChange("organization")}
+            >
+              <Image
+                preview={false}
+                src="/images/signup2.svg"
+                alt="Logo"
+                height={64}
+              />
+              <div>기관 회원</div>
+            </Choice>
+          </Col>
+        </Row>
+      </Form.Item>
+      {selectedAccountType === "person" ? (
+        <Form.Item
+          style={{ margin: "0" }}
+          name={"name"}
+          rules={[{ required: true, message: "이름을 입력해주세요!" }]}
+          label={<div>이름</div>}
+        >
+          <Input placeholder="이름을 입력해주세요." type="text" size="large" />
+        </Form.Item>
+      ) : (
+        <Form.Item
+          style={{ margin: "0" }}
+          name={"organization_name"}
+          rules={[{ required: true, message: "기관명을 입력해주세요!" }]}
+          label={<div>기관명</div>}
+        >
+          <div style={{ gap: "8px", display: "flex" }}>
+            <Input
+              placeholder="기관명을 입력해주세요."
+              type="text"
+              size="large"
+            />
+            <Button size="large" onClick={onSearch}>
+              검색
+            </Button>
+          </div>
+        </Form.Item>
+      )}
+
+      <Form.Item
+        style={{ margin: "0" }}
+        name={"email"}
+        rules={[{ required: true, message: "이메일을 입력해주세요!" }]}
+        label={<div>이메일</div>}
+      >
+        <Input placeholder="이메일을 입력해주세요." type="email" size="large" />
+      </Form.Item>
+      <Form.Item
+        style={{ margin: "0" }}
+        name={"password"}
+        rules={[{ required: true, message: "비밀번호를 입력해주세요!" }]}
+        label={<div>비밀번호</div>}
+      >
+        <Input placeholder="비밀번호를 입력해주세요." size="large" />
+      </Form.Item>
+      <Form.Item
+        style={{ margin: "0" }}
+        name={"confirm_password"}
+        rules={[{ required: true, message: "비밀번호를 입력해주세요!" }]}
+        label={<div>비밀번호 확인</div>}
+      >
+        <Input placeholder="비밀번호를 확인해주세요." size="large" />
+      </Form.Item>
+
+      <SearchModal
+        open={modalOpen}
+        onCancel={() => setModalOpen(false)}
+        onOK={onOK}
       />
-      <FormInput
-        name="name"
-        label="이름"
-        placeholder="이름을 입력해주세요."
-        required
-      />
-      <FormInput
-        name="email"
-        label="이메일"
-        placeholder="이메일을 입력해주세요."
-        type="email"
-        required
-      />
-      <FormInput
-        name="password"
-        label="비밀번호"
-        placeholder="비밀번호를 입력해주세요."
-        type="password"
-        required
-      />
-      <FormInput
-        name="confirm_password"
-        label="비밀번호 확인"
-        placeholder="비밀번호를 확인해주세요."
-        type="password"
-        required
-      />
-      <SearchModal open={modalOpen} onCancel={() => setModalOpen(false)} />
-    </FormContainer>
+    </Form>
   );
 };
 
@@ -223,22 +305,107 @@ const AccountTypeChoice = ({ selectedType, onChange }) => (
   </Row>
 );
 
-const SearchModal = ({ open, onCancel }) => (
-  <Modal
-    open={open}
-    onCancel={onCancel}
-    centered
-    title="기관을 검색해주세요."
-    footer={<Button type="primary">확인</Button>}
-  >
-    <Input
-      placeholder="기관명을 입력해주세요."
-      size="large"
-      prefix={<SearchOutlined />}
-    />
-    <Table />
-  </Modal>
-);
+const SearchModal = (props) => {
+  const { open, onCancel, onOK } = props;
+
+  useEffect(() => {
+    if (open) {
+      setModalStep(1);
+    }
+  }, [open]);
+
+  const [modalStep, setModalStep] = useState(1);
+  const [selectedType, setSelectedType] = useState("");
+  return (
+    <Modal
+      open={open}
+      onCancel={onCancel}
+      centered
+      title={
+        modalStep === 1
+          ? "기관유형을 선택해주세요."
+          : `${
+              selectedType === "hospital" ? "요양병원" : "요양원"
+            }을 검색해주세요.`
+      }
+      footer={
+        <Space style={{ width: "100%", justifyContent: "center" }}>
+          {modalStep === 1 ? (
+            <Button size="large" type="primary" onClick={() => setModalStep(2)}>
+              기관 검색하기
+            </Button>
+          ) : (
+            <>
+              <Button size="large" onClick={onCancel}>
+                취소
+              </Button>
+              <Button size="large" onClick={onOK}>
+                확인
+              </Button>
+            </>
+          )}
+        </Space>
+      }
+    >
+      {modalStep === 1 ? (
+        <Row
+          gutter={[16, 16]}
+          style={{
+            width: "100%",
+            display: "flex",
+          }}
+        >
+          <Col
+            span={12}
+            style={{
+              padding: "0 8px",
+              display: "flex",
+            }}
+          >
+            <Choice
+              selected={selectedType === "hospital"}
+              onClick={() => setSelectedType("hospital")}
+            >
+              <Image
+                preview={false}
+                src="/images/signup3.svg"
+                alt="Logo"
+                height={64}
+              />
+              <div>요양병원</div>
+            </Choice>
+          </Col>
+          <Col span={12} style={{ padding: "0 8px", display: "flex" }}>
+            <Choice
+              selected={selectedType === "care"}
+              onClick={() => setSelectedType("care")}
+            >
+              <Image
+                preview={false}
+                src="/images/signup4.svg"
+                alt="Logo"
+                height={64}
+              />
+              <div>요양원</div>
+            </Choice>
+          </Col>
+        </Row>
+      ) : (
+        <Space direction="vertical" style={{ width: "100%" }}>
+          <div style={{ display: "flex", width: "100%", gap: "8px" }}>
+            <Input
+              placeholder="기관명을 입력해주세요."
+              type="text"
+              size="large"
+            />
+            <Button size="large" icon={<SearchOutlined />} />
+          </div>
+          <Table />
+        </Space>
+      )}
+    </Modal>
+  );
+};
 
 const PrimaryButton = ({ step, isChecked, setStep, onFinish }) => (
   <Button
