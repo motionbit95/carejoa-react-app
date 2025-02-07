@@ -90,7 +90,10 @@ const Step1 = ({ setIsChecked }) => {
       <CheckItem
         label="약관에 모두 동의"
         checked={checkedItems.all}
-        onChange={(checked) => handleCheckChange("all", checked)}
+        onChange={(checked) => {
+          handleCheckChange("all", checked);
+          setIsChecked(!checked);
+        }}
         style={{
           backgroundColor: "rgba(241, 241, 241, 0.5)",
           border: "1px solid #d9d9d9",
