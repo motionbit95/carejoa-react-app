@@ -113,6 +113,7 @@ const Step2 = ({ form }) => {
 
   return (
     <FormContainer form={form}>
+      <BodyText>회원 유형을 선택해주세요.</BodyText>
       <AccountTypeChoice
         selectedType={selectedType}
         onChange={handleAccountTypeChange}
@@ -287,8 +288,7 @@ const Choice = styled.div`
 `;
 
 const BodyText = styled.div`
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
   color: var(--black-alpha-9);
   margin-top: 16px;
 `;
