@@ -1,0 +1,16 @@
+:root {
+  --bg-header: #ffffff;
+  --bg-body: #fafafa;
+
+  --primary-color: #000000;
+
+  --black-alpha-1: rgba(0, 0, 0, 0.1);
+  --black-alpha-2: rgba(0, 0, 0, 0.2);
+  --black-alpha-3: rgba(0, 0, 0, 0.3);
+  --black-alpha-4: rgba(0, 0, 0, 0.4);
+  --black-alpha-5: rgba(0, 0, 0, 0.5);
+  --black-alpha-6: rgba(0, 0, 0, 0.6);
+  --black-alpha-7: rgba(0, 0, 0, 0.7);
+  --black-alpha-8: rgba(0, 0, 0, 0.8);
+  --black-alpha-9: rgba(0, 0, 0, 0.9);
+}

@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "./style/global.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppLayout from "./components/layout";
+import { Login, Signup } from "./pages";
+
+const routers = {
+  "/account/login": {
+    path: "/account/login",
+    hasHeader: false,
+    hasFooter: false,
+    element: <Login />,
+  },
+  "/account/signup": {
+    path: "/account/signup",
+    hasHeader: true,
+    hasFooter: false,
+    element: <Signup />,
+    title: "회원가입",
+  },
+};
 
 function App() {
+  const path = window.location.pathname;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppLayout
+      hasHeader={routers[path].hasHeader}
+      hasFooter={routers[path].hasFooter}
+      title={routers[path].title}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path={routers[path].path} element={routers[path].element} />
+        </Routes>
+      </BrowserRouter>
+    </AppLayout>
   );
 }
 
