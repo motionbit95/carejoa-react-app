@@ -24,13 +24,16 @@ function App() {
   const path = window.location.pathname;
   return (
     <AppLayout
-      hasHeader={routers[path].hasHeader}
-      hasFooter={routers[path].hasFooter}
-      title={routers[path].title}
+      hasHeader={routers[path]?.hasHeader || false}
+      hasFooter={routers[path]?.hasFooter || false}
+      title={routers[path]?.title || ""}
     >
       <BrowserRouter>
         <Routes>
-          <Route path={routers[path].path} element={routers[path].element} />
+          <Route
+            path={routers[path]?.path || "*"}
+            element={routers[path]?.element || null}
+          />
         </Routes>
       </BrowserRouter>
     </AppLayout>
