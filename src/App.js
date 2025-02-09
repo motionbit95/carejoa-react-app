@@ -3,6 +3,7 @@ import "./style/global.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/layout";
 import { Login, Signup } from "./pages";
+import Mypage from "./pages/mypage";
 
 const routers = {
   "/account/login": {
@@ -17,6 +18,13 @@ const routers = {
     hasFooter: false,
     element: <Signup />,
     title: "회원가입",
+  },
+  "/mypage": {
+    path: "/mypage",
+    hasHeader: true,
+    hasFooter: true,
+    element: <Mypage />,
+    title: "마이페이지",
   },
 };
 
