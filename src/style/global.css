@@ -4,6 +4,9 @@
 
   --primary-color: #3674b5;
   --secondary-color: #578fca;
+  --tertiary-color: #a1e3f9;
+
+  --selected-color: #d0f1fc;
 
   --black-alpha-1: rgba(0, 0, 0, 0.1);
   --black-alpha-2: rgba(0, 0, 0, 0.2);

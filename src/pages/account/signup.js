@@ -10,6 +10,8 @@ import {
   Space,
   Table,
   Image,
+  List,
+  Empty,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
@@ -43,7 +45,6 @@ const Signup = () => {
         onFinish={handleSignup}
         style={{
           position: "absolute",
-
           width: "100%",
         }}
       />
@@ -74,10 +75,24 @@ const Step1 = ({ setIsChecked }) => {
   });
 
   const handleCheckChange = (key, checked) => {
-    const newCheckedItems = { ...checkedItems, [key]: checked };
-    newCheckedItems.all = ["age", "terms", "privacy", "marketing"].every(
-      (k) => newCheckedItems[k]
-    );
+    let newCheckedItems = { ...checkedItems, [key]: checked };
+
+    if (key === "all") {
+      // "약관에 모두 동의"가 선택되면 나머지 체크박스도 모두 선택
+      newCheckedItems = {
+        all: checked,
+        age: checked,
+        terms: checked,
+        privacy: checked,
+        marketing: checked, // 선택 항목도 포함
+      };
+    } else {
+      // 개별 체크 변경 시 "all" 상태 업데이트
+      newCheckedItems.all = ["age", "terms", "privacy", "marketing"].every(
+        (k) => newCheckedItems[k]
+      );
+    }
+
     setCheckedItems(newCheckedItems);
     setIsChecked(
       newCheckedItems.age && newCheckedItems.terms && newCheckedItems.privacy
@@ -92,7 +107,6 @@ const Step1 = ({ setIsChecked }) => {
         checked={checkedItems.all}
         onChange={(checked) => {
           handleCheckChange("all", checked);
-          setIsChecked(!checked);
         }}
         style={{
           backgroundColor: "rgba(241, 241, 241, 0.5)",
@@ -134,6 +148,7 @@ const Step2 = (props) => {
       style={{ display: "flex", flexDirection: "column", gap: "10px" }}
       form={form}
       requiredMark={false}
+      layout="vertical"
     >
       <Form.Item
         style={{ margin: "0" }}
@@ -311,6 +326,51 @@ const AccountTypeChoice = ({ selectedType, onChange }) => (
 const SearchModal = (props) => {
   const { open, onCancel, onOK } = props;
 
+  const facilities = [
+    {
+      id: 1,
+      name: "한마음 요양병원",
+      address: "서울시 행복구 행복동 행복로 123-56",
+      tel: "02-1234-5678",
+    },
+    {
+      id: 2,
+      name: "한마음 요양병원",
+      address: "서울시 행복구 행복동 행복로 123-56",
+      tel: "02-1234-5678",
+    },
+    {
+      id: 3,
+      name: "한마음 요양병원",
+      address: "서울시 행복구 행복동 행복로 123-56",
+      tel: "02-1234-5678",
+    },
+    {
+      id: 4,
+      name: "한마음 요양병원",
+      address: "서울시 행복구 행복동 행복로 123-56",
+      tel: "02-1234-5678",
+    },
+    {
+      id: 5,
+      name: "한마음 요양병원",
+      address: "서울시 행복구 행복동 행복로 123-56",
+      tel: "02-1234-5678",
+    },
+    {
+      id: 6,
+      name: "한마음 요양병원",
+      address: "서울시 행복구 행복동 행복로 123-56",
+      tel: "02-1234-5678",
+    },
+    {
+      id: 7,
+      name: "한마음 요양병원",
+      address: "서울시 행복구 행복동 행복로 123-56",
+      tel: "02-1234-5678",
+    },
+  ];
+
   useEffect(() => {
     if (open) {
       setModalStep(1);
@@ -325,30 +385,53 @@ const SearchModal = (props) => {
       onCancel={onCancel}
       centered
       title={
-        modalStep === 1
-          ? "기관유형을 선택해주세요."
-          : `${
-              selectedType === "hospital" ? "요양병원" : "요양원"
-            }을 검색해주세요.`
+        <div style={{ fontWeight: "bold", marginBottom: "24px" }}>
+          {modalStep === 1
+            ? "기관유형을 선택해주세요."
+            : modalStep === 2
+            ? `${
+                selectedType === "hospital" ? "요양병원" : "요양원"
+              }을 검색해주세요.`
+            : "직접 등록하기"}
+        </div>
       }
       footer={
-        <Space style={{ width: "100%", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column", // 버튼을 세로로 배치
+            gap: "8px", // 버튼 간 간격 조정
+            width: "100%", // 전체 너비
+          }}
+        >
           {modalStep === 1 ? (
-            <Button size="large" type="primary" onClick={() => setModalStep(2)}>
+            <Button
+              size="large"
+              type="primary"
+              onClick={() => setModalStep(2)}
+              style={{ width: "100%", fontWeight: "bold" }}
+            >
               기관 검색하기
             </Button>
           ) : (
-            <>
-              <Button size="large" onClick={onCancel}>
+            <div style={{ display: "flex", width: "100%", gap: "8px" }}>
+              <Button size="large" onClick={onCancel} style={{ flex: 1 }}>
                 취소
               </Button>
-              <Button size="large" onClick={onOK}>
+              <Button
+                size="large"
+                type="primary"
+                onClick={onOK}
+                style={{ flex: 1 }}
+              >
                 확인
               </Button>
-            </>
+            </div>
           )}
-        </Space>
+        </div>
       }
+      style={{ height: "500px" }} // 모달 자체의 높이 설정
+      bodyStyle={{ height: "400px", overflowY: "auto" }} // 내용 영역 조절
     >
       {modalStep === 1 ? (
         <Row
@@ -393,7 +476,7 @@ const SearchModal = (props) => {
             </Choice>
           </Col>
         </Row>
-      ) : (
+      ) : modalStep === 2 ? (
         <Space direction="vertical" style={{ width: "100%" }}>
           <div style={{ display: "flex", width: "100%", gap: "8px" }}>
             <Input
@@ -403,12 +486,67 @@ const SearchModal = (props) => {
             />
             <Button size="large" icon={<SearchOutlined />} />
           </div>
-          <Table />
+          <List
+            split={false}
+            dataSource={facilities}
+            renderItem={renderFacility}
+            pagination={{
+              pageSize: 3,
+              hideOnSinglePage: true,
+              align: "center",
+            }}
+            locale={{
+              emptyText: (
+                <Space
+                  direction="vertical"
+                  style={{
+                    width: "100%",
+                    boxSizing: "border-box",
+                    borderRadius: "10px",
+                    height: "280px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Empty description="검색 결과가 없습니다." />
+                  <Button
+                    type="primary"
+                    size="large"
+                    style={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      setModalStep(3);
+                      console.log("직접 등록하기");
+                    }}
+                  >
+                    직접 등록하기
+                  </Button>
+                </Space>
+              ),
+            }}
+          />
         </Space>
+      ) : (
+        <Form style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <Form.Item style={{ margin: "0" }}>
+            <Input placeholder="기관명을 입력해주세요." size="large" />
+          </Form.Item>
+          <Form.Item style={{ margin: "0" }}>
+            <Input placeholder="기관 주소를 입력해주세요." size="large" />
+          </Form.Item>
+          <Form.Item style={{ margin: "0" }}>
+            <Input placeholder="기관 전화번호를 입력해주세요." size="large" />
+          </Form.Item>
+        </Form>
       )}
     </Modal>
   );
 };
+
+const renderFacility = (facility) => (
+  <List.Item style={{ cursor: "pointer", padding: "8px 0" }}>
+    <ListWrapper title={facility.name} description={facility.address} />
+  </List.Item>
+);
 
 const PrimaryButton = ({ step, isChecked, setStep, onFinish }) => (
   <Button
@@ -477,4 +615,14 @@ const ViewButton = styled.div`
   color: var(--black-alpha-9);
   white-space: nowrap;
   padding-inline: 16px;
+`;
+
+const ListWrapper = styled(List.Item.Meta)`
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+
+  &:hover {
+    background-color: var(--selected-color);
+  }
 `;
