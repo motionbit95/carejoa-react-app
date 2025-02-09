@@ -1,13 +1,17 @@
 import { Space } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Mypage(props) {
+  const navigate = useNavigate();
   const user = {
     id: 1,
-    name: "test",
-    email: "test",
-    profile_image: "test",
+    name: "김철수",
+    email: "kim@example.com",
+    password: "1q2w3e4r!",
+    phone: "010-1234-5678",
+    gender: "male",
   };
 
   const stats = [
@@ -84,7 +88,9 @@ function Mypage(props) {
       <Container>
         <ProfileWrapper>
           <ProfileText>{user.name}</ProfileText>
-          <TextButton>프로필 수정</TextButton>
+          <TextButton onClick={() => navigate(`/mypage/profile/${user.id}`)}>
+            프로필 수정
+          </TextButton>
         </ProfileWrapper>
         <CardWrapper>
           {stats.map((stat) => (

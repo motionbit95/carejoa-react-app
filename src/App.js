@@ -1,9 +1,9 @@
 import "./App.css";
 import "./style/global.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AppLayout from "./components/layout";
-import { Login, Signup } from "./pages";
-import Mypage from "./pages/mypage";
+import { Login, Mypage, Signup } from "./pages";
+import Profile from "./pages/mypage/profile";
 
 const routers = {
   "/account/login": {
@@ -26,25 +26,44 @@ const routers = {
     element: <Mypage />,
     title: "마이페이지",
   },
+  "/mypage/profile/:id": {
+    // 동적 경로 설정
+    path: "/mypage/profile/:id",
+    hasHeader: true,
+    hasFooter: false,
+    element: <Profile />,
+    title: "프로필 수정",
+  },
 };
 
-function App() {
-  const path = window.location.pathname;
+function AppContent() {
+  const location = useLocation();
+  const matchedRoute = Object.values(routers).find((route) =>
+    new RegExp(`^${route.path.replace(/:id/g, "[^/]+")}$`).test(
+      location.pathname
+    )
+  );
+
   return (
     <AppLayout
-      hasHeader={routers[path]?.hasHeader || false}
-      hasFooter={routers[path]?.hasFooter || false}
-      title={routers[path]?.title || ""}
+      hasHeader={matchedRoute?.hasHeader || false}
+      hasFooter={matchedRoute?.hasFooter || false}
+      title={matchedRoute?.title || ""}
     >
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={routers[path]?.path || "*"}
-            element={routers[path]?.element || null}
-          />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        {Object.values(routers).map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Routes>
     </AppLayout>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 
