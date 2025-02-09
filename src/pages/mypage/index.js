@@ -51,6 +51,7 @@ function Mypage(props) {
         {
           id: "notice",
           name: "공지사항",
+          onClick: () => navigate("/notice"),
         },
         {
           id: "event",

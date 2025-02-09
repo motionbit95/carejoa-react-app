@@ -9,5 +9,16 @@ import Coupon from "./mypage/coupon";
 
 // post - 게시글 관련 페이지
 import Event from "./post/event";
+import NoticeList from "./post/noticeList";
+import NoticePost from "./post/noticePost";
 
-export { Login, Signup, Mypage, Profile, Coupon, Event };
+export {
+  Login,
+  Signup,
+  Mypage,
+  Profile,
+  Coupon,
+  Event,
+  NoticeList,
+  NoticePost,
+};

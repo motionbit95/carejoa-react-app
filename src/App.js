@@ -2,7 +2,16 @@ import "./App.css";
 import "./style/global.css";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AppLayout from "./components/layout";
-import { Coupon, Event, Login, Mypage, Profile, Signup } from "./pages";
+import {
+  Coupon,
+  Event,
+  Login,
+  Mypage,
+  NoticePost,
+  NoticeList,
+  Profile,
+  Signup,
+} from "./pages";
 
 const routers = {
   "/account/login": {
@@ -46,6 +55,20 @@ const routers = {
     hasFooter: false,
     element: <Event />,
     title: "이벤트",
+  },
+  "/notice/:id": {
+    path: "/notice/:id",
+    hasHeader: true,
+    hasFooter: false,
+    element: <NoticePost />,
+    title: "공지사항",
+  },
+  "/notice": {
+    path: "/notice",
+    hasHeader: true,
+    hasFooter: false,
+    element: <NoticeList />,
+    title: "공지사항",
   },
 };
 
