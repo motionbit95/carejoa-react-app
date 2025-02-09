@@ -13,6 +13,7 @@ import {
   Signup,
   Feed,
   Post,
+  Search,
 } from "./pages";
 
 const routers = {
@@ -83,6 +84,12 @@ const routers = {
     hasHeader: true,
     element: <Post />,
     // title: "커뮤니티",
+  },
+  "/search": {
+    path: "/search",
+    hasHeader: false,
+    hasFooter: false,
+    element: <Search />,
   },
 };
 

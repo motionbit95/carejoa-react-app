@@ -17,6 +17,8 @@ import NoticePost from "./post/noticePost";
 import Feed from "./community/feed";
 import Post from "./community/post";
 
+import Search from "./search";
+
 export {
   Login,
   Signup,
@@ -28,4 +30,5 @@ export {
   NoticePost,
   Feed,
   Post,
+  Search,
 };
