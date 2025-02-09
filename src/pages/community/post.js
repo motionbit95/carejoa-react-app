@@ -120,7 +120,6 @@ const CommentItem = styled.div`
 
 const FeedItem = styled.div`
   background-color: var(--bg-body);
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
 `;
