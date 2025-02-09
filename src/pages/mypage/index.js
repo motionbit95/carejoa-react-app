@@ -55,6 +55,7 @@ function Mypage(props) {
         {
           id: "event",
           name: "이벤트",
+          onClick: () => navigate("/event"),
         },
         {
           id: "faq",
@@ -82,7 +83,9 @@ function Mypage(props) {
       <MenuItemContainer>
         <MenuItemText>{name}</MenuItemText>
         {children.map((child) => (
-          <MenuItemTitle key={child.id}>{child.name}</MenuItemTitle>
+          <MenuItemTitle key={child.id} onClick={child.onClick}>
+            {child.name}
+          </MenuItemTitle>
         ))}
       </MenuItemContainer>
     );

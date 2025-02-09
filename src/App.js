@@ -2,9 +2,7 @@ import "./App.css";
 import "./style/global.css";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AppLayout from "./components/layout";
-import { Login, Mypage, Signup } from "./pages";
-import Profile from "./pages/mypage/profile";
-import Coupon from "./pages/mypage/coupon";
+import { Coupon, Event, Login, Mypage, Profile, Signup } from "./pages";
 
 const routers = {
   "/account/login": {
@@ -41,6 +39,13 @@ const routers = {
     hasFooter: false,
     element: <Coupon />,
     title: "쿠폰",
+  },
+  "/event": {
+    path: "/event",
+    hasHeader: true,
+    hasFooter: false,
+    element: <Event />,
+    title: "이벤트",
   },
 };
 
