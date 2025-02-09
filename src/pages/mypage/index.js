@@ -16,7 +16,12 @@ function Mypage(props) {
 
   const stats = [
     { id: 1, name: "포인트", stat: 1000 },
-    { id: 2, name: "쿠폰", stat: 3 },
+    {
+      id: 2,
+      name: "쿠폰",
+      stat: 3,
+      onClick: () => navigate(`/mypage/coupon/${user.id}`),
+    },
     { id: 3, name: "관심시설", stat: 2 },
   ];
 
@@ -63,9 +68,9 @@ function Mypage(props) {
     },
   ];
 
-  const CardItem = ({ stat, name }) => {
+  const CardItem = ({ stat, name, onClick }) => {
     return (
-      <CardContainer>
+      <CardContainer onClick={onClick}>
         <CardTitle>{stat}</CardTitle>
         <CardDescription>{name}</CardDescription>
       </CardContainer>
@@ -94,7 +99,12 @@ function Mypage(props) {
         </ProfileWrapper>
         <CardWrapper>
           {stats.map((stat) => (
-            <CardItem key={stat.id} stat={stat.stat} name={stat.name} />
+            <CardItem
+              key={stat.id}
+              stat={stat.stat}
+              name={stat.name}
+              onClick={stat.onClick}
+            />
           ))}
         </CardWrapper>
       </Container>

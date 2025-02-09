@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AppLayout from "./components/layout";
 import { Login, Mypage, Signup } from "./pages";
 import Profile from "./pages/mypage/profile";
+import Coupon from "./pages/mypage/coupon";
 
 const routers = {
   "/account/login": {
@@ -33,6 +34,13 @@ const routers = {
     hasFooter: false,
     element: <Profile />,
     title: "프로필 수정",
+  },
+  "/mypage/coupon/:id": {
+    path: "/mypage/coupon/:id",
+    hasHeader: true,
+    hasFooter: false,
+    element: <Coupon />,
+    title: "쿠폰",
   },
 };
 
