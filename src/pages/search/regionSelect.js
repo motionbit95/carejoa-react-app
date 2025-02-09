@@ -119,6 +119,7 @@ const RegionSelect = (props) => {
           onChange={handleLocationTypeChange}
           style={{ width: "100%" }}
           placeholder="시설형태"
+          size="large"
         >
           {locationTypeOptions.map((option) => (
             <Option key={option.value} value={option.value}>
@@ -135,6 +136,7 @@ const RegionSelect = (props) => {
           value={province}
           onChange={handleProvinceChange}
           style={{ width: "100%" }}
+          size="large"
         >
           {provinceOptions}
         </Select>
@@ -148,6 +150,7 @@ const RegionSelect = (props) => {
           onChange={handleCityChange}
           style={{ width: "100%" }}
           disabled={!province}
+          size="large"
         >
           {cityOptions}
         </Select>

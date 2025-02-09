@@ -93,14 +93,14 @@ function Search(props) {
       style={{
         display: "flex",
         flexDirection: "column",
+        paddingBottom: "16px",
       }}
     >
-      <Row>
+      <Row style={{ position: "relative" }}>
         <Col span={24}>
-          <Filter />
+          <Filter setRegion={setRegion} />
         </Col>
         <Col span={24}>
-          {/* <Banner /> */}
           <List
             loading={isLoading}
             pagination={{

@@ -87,9 +87,10 @@ const routers = {
   },
   "/search": {
     path: "/search",
-    hasHeader: false,
-    hasFooter: false,
+    hasHeader: true,
+    hasFooter: true,
     element: <Search />,
+    title: "기관 검색",
   },
 };
 

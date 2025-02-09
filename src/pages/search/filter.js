@@ -2,8 +2,13 @@ import { cyan } from "@ant-design/colors";
 import { Button, Divider, Input, Popover, Radio, Space } from "antd";
 import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
-import { FilterOutlined, RightOutlined } from "@ant-design/icons";
+import {
+  FilterOutlined,
+  RightOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import RegionSelect from "./regionSelect";
 
 // Styled Components
 const FilterButton = styled.div`
@@ -15,6 +20,8 @@ const FilterButton = styled.div`
   border-radius: 4px;
   font-weight: 600;
   color: ${({ isSelected }) => (isSelected ? cyan[6] : "#141414")};
+  cursor: pointer;
+  gap: 4px;
 `;
 
 const RadioButton = styled(Radio.Button)`
@@ -42,9 +49,10 @@ const PopoverTitle = ({ text }) => (
 );
 
 // Main Filter Component
-function Filter() {
+function Filter({ setRegion }) {
   const { device } = "mobile";
   const [filter, setFilter] = useState({ size: "A", grade: "A", date: "A" });
+
   const [popoverVisibility, setPopoverVisibility] = useState({
     size: false,
     grade: false,
@@ -96,6 +104,7 @@ function Filter() {
       onChange={handleRadioChange}
       popoverVisibility={popoverVisibility}
       setPopoverVisibility={setPopoverVisibility}
+      setRegion={setRegion}
     />
   );
 }
@@ -106,16 +115,18 @@ const MobileFilter = ({
   onChange,
   popoverVisibility,
   setPopoverVisibility,
+  setRegion,
 }) => (
   <Space
     direction="vertical"
     style={{
-      paddingBlock: 16,
+      padding: "16px",
       boxSizing: "border-box",
       width: "100%",
     }}
   >
     <SearchSection />
+    <RegionSelect setRegion={setRegion} />
     <FilterSection
       filter={filter}
       onChange={onChange}
@@ -127,7 +138,17 @@ const MobileFilter = ({
 );
 
 // Search Section (Name search)
-const SearchSection = () => <Input.Search placeholder="기관 이름 입력" />;
+const SearchSection = () => (
+  <div style={{ display: "flex", gap: "8px", width: "100%" }}>
+    <Input
+      placeholder="기관명을 입력해주세요."
+      // value={searchQuery}
+      // onChange={(e) => setSearchQuery(e.target.value)}
+      size="large"
+    />
+    <Button size="large" icon={<SearchOutlined />} /*onClick={handleSearch}*/ />
+  </div>
+);
 
 // Divider Section
 const DividerSection = () => (
@@ -141,7 +162,7 @@ const FilterSection = ({
   popoverVisibility,
   setPopoverVisibility,
 }) => (
-  <Space direction="horizontal" size={16} style={{ width: "100%" }}>
+  <Space direction="horizontal" size={8} style={{ width: "100%" }}>
     <PopoverFilter
       title="시설 규모"
       name="size"
@@ -193,7 +214,7 @@ const PopoverFilter = ({
   preset = "",
 }) => (
   <Popover
-    placement="rightTop"
+    placement="bottom"
     title={<PopoverTitle text={title} />}
     content={
       <Radio.Group
@@ -202,7 +223,7 @@ const PopoverFilter = ({
         onChange={onChange}
         name={name}
       >
-        <Space size="small">
+        <Space size="small" direction="vertical">
           {options.map((option) => (
             <RadioButton
               key={option}
