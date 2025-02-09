@@ -11,6 +11,8 @@ import {
   NoticeList,
   Profile,
   Signup,
+  Feed,
+  Post,
 } from "./pages";
 
 const routers = {
@@ -69,6 +71,18 @@ const routers = {
     hasFooter: false,
     element: <NoticeList />,
     title: "공지사항",
+  },
+  "/community": {
+    path: "/community",
+    hasHeader: true,
+    element: <Feed />,
+    title: "커뮤니티",
+  },
+  "/community/:id": {
+    path: "/community/:id",
+    hasHeader: true,
+    element: <Post />,
+    // title: "커뮤니티",
   },
 };
 

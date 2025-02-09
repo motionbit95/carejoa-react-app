@@ -13,6 +13,10 @@ import Event from "./post/event";
 import NoticeList from "./post/noticeList";
 import NoticePost from "./post/noticePost";
 
+// community - 게시판 관련 페이지
+import Feed from "./community/feed";
+import Post from "./community/post";
+
 export {
   Login,
   Signup,
@@ -22,4 +26,6 @@ export {
   Event,
   NoticeList,
   NoticePost,
+  Feed,
+  Post,
 };
