@@ -26,6 +26,9 @@ admin.initializeApp({
   storageBucket: "carejoa-motionbit.appspot.com",
 });
 
+const db = admin.firestore();
+const bucket = admin.storage().bucket();
+
 // swagger
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
@@ -69,6 +72,47 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/hospital", hospitalRouter);
 app.use("/facility", facilityRouter);
+
+// Firebase Storage에 파일 업로드하는 엔드포인트
+app.post("/upload", async (req, res) => {
+  try {
+    const { fileName, fileBase64 } = req.body;
+
+    if (!fileName || !fileBase64) {
+      return res
+        .status(400)
+        .json({ error: "fileName과 fileBase64가 필요합니다." });
+    }
+
+    // 파일 저장 경로 설정
+    const filePath = `uploads/${Date.now()}-${fileName}`;
+    const file = bucket.file(filePath);
+    const buffer = Buffer.from(fileBase64, "base64");
+
+    // Storage에 파일 업로드
+    await file.save(buffer, { contentType: "image/png" });
+
+    // 다운로드 가능한 URL 가져오기
+    const [url] = await file.getSignedUrl({
+      action: "read",
+      expires: "03-01-2030",
+    });
+
+    // Firestore에 저장
+    const fileData = {
+      fileName,
+      url,
+      createdAt: admin.firestore.Timestamp.now(),
+    };
+
+    const docRef = await db.collection("uploads").add(fileData);
+
+    return res.status(200).json({ id: docRef.id, ...fileData });
+  } catch (error) {
+    console.error("Upload Error:", error);
+    return res.status(500).json({ error: "파일 업로드 실패" });
+  }
+});
 
 app.listen(8088, function () {
   console.log("Example app listening on port 8088!");

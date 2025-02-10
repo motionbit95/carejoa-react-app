@@ -15,6 +15,7 @@ import {
   Post,
   Search,
 } from "./pages";
+import Write from "./pages/community/write";
 
 const routers = {
   "/account/login": {
@@ -72,6 +73,13 @@ const routers = {
     hasFooter: false,
     element: <NoticeList />,
     title: "공지사항",
+  },
+  "/community/write": {
+    path: "/community/write",
+    hasHeader: true,
+    hasFooter: false,
+    element: <Write />,
+    title: "글쓰기",
   },
   "/community": {
     path: "/community",
