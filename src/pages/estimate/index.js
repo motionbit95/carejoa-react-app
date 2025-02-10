@@ -21,10 +21,29 @@ const Estimate = () => {
   const carouselRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [responses, setResponses] = useState({});
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
-  const totalQuestions = EstimateItems.length;
-  const answeredQuestions = Object.keys(responses).length;
-  const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+  const handlePrevButton = () => {
+    carouselRef.current.prev();
+  };
+
+  const handleNextButton = () => {
+    carouselRef.current.next();
+
+    const totalQuestions = EstimateItems.length;
+    const answeredQuestions = Object.keys(responses).length;
+    setProgressPercentage((answeredQuestions / totalQuestions) * 100);
+  };
+
+  const onSubmit = () => {
+    if (Object.keys(responses).length !== EstimateItems.length) {
+      console.log("아직 입력하지 않은 문항이 있습니다.");
+      return;
+    }
+
+    // Post
+    console.log(responses);
+  };
 
   const handleSlideChange = (current) => {
     setCurrentSlide(current);
@@ -46,11 +65,12 @@ const Estimate = () => {
         handleSlideChange={handleSlideChange}
         handleSelect={handleSelect}
         responses={responses}
+        progressPercentage={progressPercentage}
+        setCurrentSlide={setCurrentSlide}
       />
       <div style={{ width: "100%", display: "flex", gap: "8px" }}>
         <Button
-          onClick={() => carouselRef.current.prev()}
-          disabled={currentSlide === 0}
+          onClick={handlePrevButton}
           style={{
             width: "100%",
             display: currentSlide === 0 ? "none" : "block",
@@ -59,14 +79,26 @@ const Estimate = () => {
         >
           이전
         </Button>
-        <Button
-          type="primary"
-          onClick={() => (console.log(responses), carouselRef.current.next())}
-          size="large"
-          style={{ width: "100%" }}
-        >
-          다음
-        </Button>
+        {currentSlide === EstimateItems.length - 1 ? (
+          <Button
+            type="primary"
+            onClick={onSubmit}
+            size="large"
+            style={{ width: "100%" }}
+          >
+            제출하기
+          </Button>
+        ) : (
+          <Button
+            type="primary"
+            onClick={handleNextButton}
+            size="large"
+            style={{ width: "100%" }}
+            disabled={Object.keys(responses).length !== currentSlide + 1}
+          >
+            다음
+          </Button>
+        )}
       </div>
     </Container>
   );
@@ -79,6 +111,7 @@ const EstimateCarousel = (props) => {
     handleSelect,
     progressPercentage,
     responses,
+    setCurrentSlide,
   } = props;
 
   return (
@@ -96,7 +129,9 @@ const EstimateCarousel = (props) => {
         fade
         dots={false}
         ref={carouselRef}
+        beforeChange={(current, next) => setCurrentSlide(next)}
         afterChange={handleSlideChange}
+        swipe={false}
       >
         {EstimateItems.map((item, index) => (
           <div key={index}>
@@ -117,7 +152,7 @@ const EstimateCarousel = (props) => {
               </Col>
               <Col span={24}>
                 <Question>
-                  <strong>Q{item.id} </strong>
+                  <strong>Q{item.id}. </strong>
                   {item.question}
                 </Question>
               </Col>
@@ -188,9 +223,11 @@ const ItemForm = ({ item, handleSelect, responses }) => {
       return <EquimentInput onChange={handleSelect} id={item.id} />;
     case "selectmultiple":
       return (
-        <Space>
-          <div>여기</div>
-        </Space>
+        <MultiSelectQuestion
+          data={item.items}
+          onChange={handleSelect}
+          id={item.id}
+        />
       );
     case "calculatorInput":
       return <Calculator id={item.id} onChange={handleSelect} />;
@@ -218,7 +255,17 @@ const Calculator = ({ id, onChange }) => {
   };
   return (
     <div style={{ width: "100%" }}>
-      <div>월 {totals.toLocaleString()}</div>
+      <div
+        style={{
+          direction: "rtl",
+          marginBottom: "16px",
+          fontSize: "18px",
+          fontWeight: "bold",
+          color: "var(--secondary-color)",
+        }}
+      >
+        월 {totals.toLocaleString()}
+      </div>
       <Input
         type="text"
         placeholder="0"
@@ -310,6 +357,47 @@ const EquimentInput = ({ onChange, id }) => {
             }
           />
         </Flex>
+      ))}
+    </Space>
+  );
+};
+
+const MultiSelectQuestion = ({ onChange, id, data }) => {
+  const [selectedButton, setSelectedButton] = useState([]);
+
+  const handleSelect = (item) => {
+    setSelectedButton((prev) => {
+      const isSelected = prev.includes(item);
+      const newSelected = isSelected
+        ? prev.filter((i) => i !== item) // 선택 해제
+        : [...prev, item]; // 선택 추가
+
+      if (onChange) {
+        onChange(id, newSelected);
+      }
+      return newSelected;
+    });
+  };
+
+  useEffect(() => {
+    console.log(selectedButton);
+  }, [selectedButton]);
+
+  return (
+    <Space
+      direction="horizontal"
+      style={{
+        flexWrap: "wrap",
+      }}
+    >
+      {data.map((item) => (
+        <Button
+          size="large"
+          onClick={() => handleSelect(item)}
+          type={selectedButton.includes(item) ? "primary" : "default"}
+        >
+          {item}
+        </Button>
       ))}
     </Space>
   );
