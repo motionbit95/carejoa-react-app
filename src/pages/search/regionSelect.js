@@ -5,7 +5,7 @@ import { hospital_location, facility_location } from "./location"; // Assuming b
 const { Option } = Select;
 
 const RegionSelect = (props) => {
-  const { setRegion, setAdminPttnCd } = props;
+  const { setRegion, setAdminPttnCd, visibleType = true } = props;
   const [province, setProvince] = useState("11");
   const [city, setCity] = useState(null);
   const [locationType, setLocationType] = useState("hospital"); // Default to 'facility'
@@ -113,7 +113,7 @@ const RegionSelect = (props) => {
   return (
     <Row gutter={[8, 8]}>
       {/* Location Type Selector */}
-      <Col span={24}>
+      <Col span={24} style={{ display: visibleType ? "block" : "none" }}>
         <Select
           value={locationType}
           onChange={handleLocationTypeChange}

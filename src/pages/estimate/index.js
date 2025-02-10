@@ -169,7 +169,7 @@ const ItemForm = ({ item, handleSelect, responses }) => {
         />
       );
     case "upload":
-      return <ImageUploader />;
+      return <ImageUploader onUpload={() => {}} />;
     case "date":
       return (
         <DatePicker

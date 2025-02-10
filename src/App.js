@@ -17,6 +17,7 @@ import {
   Estimate,
 } from "./pages";
 import Write from "./pages/community/write";
+import Counseling from "./pages/_old/counsel/chat";
 
 const routers = {
   "/account/login": {
@@ -107,6 +108,13 @@ const routers = {
     hasFooter: true,
     element: <Estimate />,
     title: "견적작성",
+  },
+  "/counseling": {
+    path: "/counseling",
+    hasHeader: true,
+    hasFooter: false,
+    element: <Counseling />,
+    title: "상담신청",
   },
 };
 
