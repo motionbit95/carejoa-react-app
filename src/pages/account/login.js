@@ -1,8 +1,10 @@
 import { Button, Image, Input, Space, Typography } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Login(props) {
+  const navigate = useNavigate();
   return (
     <Center>
       <Space direction="vertical" size={40} style={{ display: "flex" }}>
@@ -47,7 +49,11 @@ function Login(props) {
           >
             계정이 없으신가요?
           </Typography>
-          <Button size="large" style={{ width: "100%" }}>
+          <Button
+            size="large"
+            style={{ width: "100%" }}
+            onClick={() => navigate("/account/signup")}
+          >
             회원가입
           </Button>
         </Space>

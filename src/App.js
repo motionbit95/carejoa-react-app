@@ -14,6 +14,7 @@ import {
   Feed,
   Post,
   Search,
+  Estimate,
 } from "./pages";
 import Write from "./pages/community/write";
 
@@ -99,6 +100,13 @@ const routers = {
     hasFooter: true,
     element: <Search />,
     title: "기관 검색",
+  },
+  "/estimate": {
+    path: "/estimate",
+    hasHeader: true,
+    hasFooter: true,
+    element: <Estimate />,
+    title: "견적작성",
   },
 };
 

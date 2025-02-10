@@ -83,7 +83,7 @@ const Step2 = (props) => {
           rules={[{ required: true, message: "기관명을 입력해주세요!" }]}
           label={<div>기관명</div>}
         >
-          <div style={{ gap: "8px", display: "flex" }}>
+          <AnswerContainer>
             <Input
               placeholder="기관명을 입력해주세요."
               type="text"
@@ -92,7 +92,7 @@ const Step2 = (props) => {
             <Button size="large" onClick={onSearch}>
               검색
             </Button>
-          </div>
+          </AnswerContainer>
         </Form.Item>
       )}
 
@@ -141,6 +141,12 @@ const Choice = styled.div`
   background-color: ${(props) => (props.selected ? "#A1E3F9" : "#F1F1F1")};
   width: 100%;
   cursor: pointer;
+`;
+
+const AnswerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 export default Step2;

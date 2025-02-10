@@ -1,16 +1,24 @@
 import { ArrowLeftOutlined, HomeOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const { Header } = Layout;
 
 function PageHeader(props) {
+  const navigate = useNavigate();
   return (
     <HeaderContainer>
-      <ArrowLeftOutlined style={{ fontSize: "18px" }} />
+      <ArrowLeftOutlined
+        style={{ fontSize: "18px" }}
+        onClick={() => navigate(-1)}
+      />
       <Title>{props.children}</Title>
-      <HomeOutlined style={{ fontSize: "18px" }} />
+      <HomeOutlined
+        style={{ fontSize: "18px" }}
+        onClick={() => navigate("/")}
+      />
     </HeaderContainer>
   );
 }

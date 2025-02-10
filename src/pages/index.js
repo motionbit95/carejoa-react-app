@@ -19,6 +19,9 @@ import Post from "./community/post";
 
 import Search from "./search";
 
+// estimate - 견적 관련 페이지
+import Estimate from "./estimate";
+
 export {
   Login,
   Signup,
@@ -31,4 +34,5 @@ export {
   Feed,
   Post,
   Search,
+  Estimate,
 };
