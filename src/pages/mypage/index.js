@@ -59,10 +59,6 @@ function Mypage(props) {
           onClick: () => navigate("/event"),
         },
         {
-          id: "faq",
-          name: "FAQ",
-        },
-        {
           id: "setting",
           name: "설정",
         },

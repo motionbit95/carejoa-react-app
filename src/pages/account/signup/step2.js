@@ -5,7 +5,7 @@ import SearchModal from "./modal";
 
 const Step2 = (props) => {
   const { form } = props;
-  const [selectedAccountType, setSelectedAccountType] = useState("");
+  const [selectedAccountType, setSelectedAccountType] = useState("person");
   const [modalOpen, setModalOpen] = useState(false);
 
   const onSearch = () => {
@@ -145,7 +145,6 @@ const Choice = styled.div`
 
 const AnswerContainer = styled.div`
   display: flex;
-  flex-direction: column;
   gap: 8px;
 `;
 

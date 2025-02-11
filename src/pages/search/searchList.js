@@ -1,7 +1,6 @@
 import { Col, Image, Space, Tag } from "antd";
 import React from "react";
 import Distance from "./distance";
-import Hospital from "../../assets/hospital.png";
 
 function SearchList(props) {
   const { device } = "mobile";
@@ -18,7 +17,7 @@ function SearchList(props) {
         preview={false}
         width={device === "mobile" ? 110 : 100}
         height={device === "mobile" ? 110 : 110}
-        src={item?.imgUrl || Hospital}
+        src={item?.imgUrl || "images/MdHealthAndSafety.svg"}
         style={{
           borderRadius: 8,
           objectFit: "cover",
