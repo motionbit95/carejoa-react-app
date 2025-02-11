@@ -22,6 +22,9 @@ import Search from "./search";
 // estimate - 견적 관련 페이지
 import Estimate from "./estimate";
 
+// landing - 랜딩 관련 페이지
+import Landing from "./landing";
+
 export {
   Login,
   Signup,
@@ -35,4 +38,5 @@ export {
   Post,
   Search,
   Estimate,
+  Landing,
 };
