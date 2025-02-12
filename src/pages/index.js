@@ -25,6 +25,8 @@ import Estimate from "./estimate";
 // landing - 랜딩 관련 페이지
 import Landing from "./landing";
 
+import Main from "./main";
+
 export {
   Login,
   Signup,
@@ -39,4 +41,5 @@ export {
   Search,
   Estimate,
   Landing,
+  Main,
 };

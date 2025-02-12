@@ -16,6 +16,7 @@ import {
   Search,
   Estimate,
   Landing,
+  Main,
 } from "./pages";
 import Write from "./pages/community/write";
 import Counseling from "./pages/_old/counsel/chat";
@@ -117,7 +118,13 @@ const routers = {
     element: <Counseling />,
     title: "상담신청",
   },
-
+  "/": {
+    path: "/",
+    hasHeader: false,
+    hasFooter: true,
+    element: <Main />,
+    title: "메인",
+  },
   "/landing": {
     path: "/landing",
     hasHeader: false,

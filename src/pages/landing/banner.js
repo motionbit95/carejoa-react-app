@@ -21,18 +21,20 @@ const Banner = () => {
         </StyledCard>
       </CardContainer>
 
-      <GridContainer>
-        <Row gutter={[16, 16]} justify="center">
-          {BannerButtons.map((button) => (
-            <Col span={6} key={button.name}>
-              <CardWrapper onClick={() => window.open(button.link)}>
-                <ImageWrapper>{button.icon}</ImageWrapper>
-                <TextWrapper>{button.name}</TextWrapper>
-              </CardWrapper>
-            </Col>
-          ))}
-        </Row>
-      </GridContainer>
+      <CardContainer>
+        <GridContainer>
+          <Row gutter={[16, 16]} justify="center">
+            {BannerButtons.map((button) => (
+              <Col span={6} key={button.name}>
+                <CardWrapper onClick={() => window.open(button.link)}>
+                  <ImageWrapper>{button.icon}</ImageWrapper>
+                  <TextWrapper>{button.name}</TextWrapper>
+                </CardWrapper>
+              </Col>
+            ))}
+          </Row>
+        </GridContainer>
+      </CardContainer>
 
       <EmergencyContainer>
         <Row gutter={[16, 16]}>
