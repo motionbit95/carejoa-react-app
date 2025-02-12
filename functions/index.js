@@ -71,6 +71,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/users", require("./routes/account"));
+app.use("/counseling", require("./routes/counseling"));
+app.use("/estimate", require("./routes/estimate"));
+app.use("/coupon", require("./routes/coupon"));
 app.use("/hospital", hospitalRouter);
 app.use("/facility", facilityRouter);
 
