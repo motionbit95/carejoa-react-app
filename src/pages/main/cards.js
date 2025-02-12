@@ -25,6 +25,7 @@ const Hospitals = () => {
               width={80}
               height={80}
               style={{ borderRadius: "8px", backgroundColor: "#d9d9d9" }}
+              preview={false}
             />
             <StarIcon>
               <FaStar color="#FD8606" />
