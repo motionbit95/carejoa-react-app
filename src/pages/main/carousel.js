@@ -7,9 +7,14 @@ export const EventCarousel = () => {
     <Container>
       <Carousel autoplay>
         {images.map((banner) => (
-          <div key={banner.alt}>
-            <Image src={banner.image} alt={banner.alt} />
-          </div>
+          <ImageContainer key={banner.alt}>
+            <Image
+              preview={false}
+              src={banner.image}
+              alt={banner.alt}
+              width={"100%"}
+            />
+          </ImageContainer>
         ))}
       </Carousel>
     </Container>
@@ -22,3 +27,5 @@ const Container = styled.div`
   margin: auto;
   background-color: white;
 `;
+
+const ImageContainer = styled.div``;

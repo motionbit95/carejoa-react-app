@@ -55,6 +55,7 @@ const Hospitals = () => {
 
 const Container = styled.div`
   max-width: 600px;
+  width: 100%;
   margin: auto;
   padding: 16px;
   background-color: white;

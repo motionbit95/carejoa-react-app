@@ -67,12 +67,41 @@ const ReviewScroll = styled.div`
   padding-bottom: 16px;
   padding-left: 24px;
 
-  /* 스크롤바 숨기기 */
   &::-webkit-scrollbar {
-    display: none; /* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
+    height: 8px;
   }
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+
+  /* 스크롤바 트랙 배경 설정 */
+  &::-webkit-scrollbar-track {
+    background: transparent; /* 트랙 배경을 투명하게 설정 */
+  }
+
+  /* 스크롤바 핸들 (잡는 부분) 스타일 */
+  &::-webkit-scrollbar-thumb {
+    background: #888; /* 핸들의 배경색 */
+    border-radius: 10px; /* 핸들의 둥근 모서리 */
+  }
+
+  /* 스크롤바 핸들을 hover 시 색상 변경 */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555; /* hover 시 색상 */
+  }
+
+  /* 모바일에서는 스크롤바 숨기기 */
+  @media (max-width: 767px) {
+    &::-webkit-scrollbar {
+      display: none; /* 모바일에서 스크롤바 숨기기 */
+    }
+    -ms-overflow-style: none; /* IE 10+에서 스크롤바 숨기기 */
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+  }
+
+  /* 768px 이상에서 스크롤바 보이게 하기 */
+  @media (min-width: 768px) {
+    &::-webkit-scrollbar {
+      display: block; /* 768px 이상에서 스크롤바 표시 */
+    }
+  }
 `;
 
 const ReviewCard = styled.div`
@@ -87,17 +116,11 @@ const ReviewCard = styled.div`
   flex-direction: column;
   gap: 8px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-
-  @media (min-width: 768px) {
-    min-width: 250px;
-    min-height: 300px;
-    padding: 32px;
-  }
 `;
 
 const TagItem = styled(Tag)`
-  font-size: 10px;
-  padding: 2px 6px;
+  font-size: 12px;
+  padding: 4px 8px;
   height: auto;
   line-height: 1;
   margin-right: 0px;
@@ -105,15 +128,15 @@ const TagItem = styled(Tag)`
 `;
 
 const ReviewName = styled.div`
-  font-size: "14px",
-  fontWeight: "bold",
-  TextAlign: "start",
-  lineHeight: "1.4",
+  font-size: 14px;
+  font-weight: bold;
+  text-align: start;
+  line-height: 1.4;
 `;
 
 const ReviewAddress = styled.div`
-  font-size: "12px",
-  TextAlign: "start",
-  lineHeight: "1.4",
-  color: "#4a5568",
+  font-size: 12px;
+  text-align: start;
+  line-height: 1.4,
+  color: #4a5568,
 `;

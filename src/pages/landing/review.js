@@ -150,6 +150,42 @@ const ReviewScroll = styled.div`
   overflow-x: auto;
   white-space: nowrap;
   padding-bottom: 16px;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  /* 스크롤바 트랙 배경 설정 */
+  &::-webkit-scrollbar-track {
+    background: transparent; /* 트랙 배경을 투명하게 설정 */
+  }
+
+  /* 스크롤바 핸들 (잡는 부분) 스타일 */
+  &::-webkit-scrollbar-thumb {
+    background: #888; /* 핸들의 배경색 */
+    border-radius: 10px; /* 핸들의 둥근 모서리 */
+  }
+
+  /* 스크롤바 핸들을 hover 시 색상 변경 */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555; /* hover 시 색상 */
+  }
+
+  /* 모바일에서는 스크롤바 숨기기 */
+  @media (max-width: 767px) {
+    &::-webkit-scrollbar {
+      display: none; /* 모바일에서 스크롤바 숨기기 */
+    }
+    -ms-overflow-style: none; /* IE 10+에서 스크롤바 숨기기 */
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+  }
+
+  /* 768px 이상에서 스크롤바 보이게 하기 */
+  @media (min-width: 768px) {
+    &::-webkit-scrollbar {
+      display: block; /* 768px 이상에서 스크롤바 표시 */
+    }
+  }
 `;
 
 const ReviewCard = styled.div`
