@@ -67,7 +67,7 @@ const BannerCarousel = () => {
     <Carousel autoplay>
       {Banners.map((banner) => (
         <div key={banner.alt}>
-          <Image src={banner.image} alt={banner.alt} />
+          <Image preview={false} src={banner.image} alt={banner.alt} />
         </div>
       ))}
     </Carousel>

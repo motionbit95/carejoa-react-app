@@ -1,6 +1,7 @@
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import { Button, Col, Drawer, Image, Menu, Row, Space } from "antd";
 import { Header } from "antd/es/layout/layout";
+import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -94,15 +95,30 @@ const LandingHeader = () => {
           />
         </Space>
       </HeaderContainer>
+
       <Drawer
-        placement="top"
+        placement="left"
         mask={false}
         onClose={handleOpen}
-        closeIcon={null}
+        closeIcon={false}
+        title={
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Image
+              onClick={() => (window.location.href = "/")}
+              src={"/images/logo.svg"}
+              style={{ height: "32px", cursor: "pointer" }}
+            />
+            <CloseOutlined style={{ cursor: "pointer" }} onClick={handleOpen} />
+          </div>
+        }
         open={open}
-        width={250}
         height={"auto"}
-        style={{ paddingTop: "64px" }}
+        width={"280px"}
+        style={{
+          zIndex: 9999,
+          maxWidth: "280px",
+          margin: "0 auto", // 중앙 정렬
+        }}
       >
         <Column
           style={{
@@ -113,10 +129,10 @@ const LandingHeader = () => {
             <Menu
               mode="vertical"
               onClick={({ key }) =>
-                handleMenuClick(LoginItem[key].path, LoginItem[key].onClick)
+                handleMenuClick(LogoutItem[key].path, LogoutItem[key].onClick)
               }
             >
-              {LoginItem.map((item, index) => (
+              {LogoutItem.map((item, index) => (
                 <Menu.Item key={index} icon={item.icon}>
                   {item.label}
                 </Menu.Item>
@@ -126,10 +142,10 @@ const LandingHeader = () => {
             <Menu
               mode="vertical"
               onClick={({ key }) =>
-                handleMenuClick(LogoutItem[key].path, LogoutItem[key].onClick)
+                handleMenuClick(LoginItem[key].path, LoginItem[key].onClick)
               }
             >
-              {LogoutItem.map((item, index) => (
+              {LoginItem.map((item, index) => (
                 <Menu.Item key={index} icon={item.icon}>
                   {item.label}
                 </Menu.Item>
@@ -145,7 +161,7 @@ const LandingHeader = () => {
 const HeaderContainer = styled(Header)`
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 999;
   background-color: var(--bg-header);
   padding: 0 16px;
   display: flex;

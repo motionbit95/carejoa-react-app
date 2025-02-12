@@ -30,6 +30,7 @@ const ReviewList = ({ name, address, tag, image }) => {
             borderRadius: "8px",
           }}
           src={image}
+          preview={false}
         />
         <Column style={{ gap: "4px" }}>
           <ReviewName>{name}</ReviewName>
@@ -65,6 +66,13 @@ const ReviewScroll = styled.div`
   white-space: nowrap;
   padding-bottom: 16px;
   padding-left: 24px;
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none; /* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
+  }
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 `;
 
 const ReviewCard = styled.div`
