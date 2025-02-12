@@ -5,10 +5,12 @@ import Hero from "./hero";
 import Review from "./review";
 import Service1 from "./service1";
 import Service2 from "./service2";
+import LandingHeader from "./header";
 
 const Landing = () => {
   return (
-    <div>
+    <div style={{ position: "relative" }}>
+      <LandingHeader />
       <Banner />
       <Hero />
       <Review />
@@ -21,4 +23,5 @@ const Landing = () => {
     </div>
   );
 };
+
 export default Landing;

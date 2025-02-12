@@ -1,69 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-import { Typography, Row, Col, Card } from "antd";
+import { Row, Col, Card } from "antd";
 import Title from "antd/es/skeleton/Title";
-// import { Stat } from "./Stat";
-// import { reviews, stats } from "./data";
-// import { Rating } from "./Rating";
-// import { ReviewList } from "./ReviewList";
+import { reviews } from "./data";
+import Icon from "@ant-design/icons";
 
 const Review = () => {
-  const reviews = [
-    {
-      name: "요양병원",
-      description:
-        "원무과에서 달마다 병원비 청구를 하지 않고 몇달치를 한번에 현금으로 청구하셔서 당황했습니다... 원장님이 차분하게 환자의 상태를 설명해주셔서 좋았습니다.",
-      //   icon: MdLocalHospital,
-    },
-    {
-      name: "요양원",
-      description:
-        "할머니를 병원에 모시면서 그동안 신경 써주신 의사선생님 간호사님들 요양보호사분 너무 감사합니다 다들 너무 친절하시고 좋았습니다.",
-      //   icon: MdHealing,
-    },
-    {
-      name: "요양원",
-      description:
-        "할머니를 병원에 모시면서 그동안 신경 써주신 의사선생님 간호사님들 요양보호사분 너무 감사합니다 다들 너무 친절하시고 좋았습니다.",
-      //   icon: MdHealing,
-    },
-    {
-      name: "요양병원",
-      description:
-        "원무과에서 달마다 병원비 청구를 하지 않고 몇달치를 한번에 현금으로 청구하셔서 당황했습니다... 원장님이 차분하게 환자의 상태를 설명해주셔서 좋았습니다.",
-      //   icon: MdLocalHospital,
-    },
-    {
-      name: "요양병원",
-      description:
-        "원무과에서 달마다 병원비 청구를 하지 않고 몇달치를 한번에 현금으로 청구하셔서 당황했습니다... 원장님이 차분하게 환자의 상태를 설명해주셔서 좋았습니다.",
-      //   icon: MdLocalHospital,
-    },
-    {
-      name: "요양병원",
-      description:
-        "원무과에서 달마다 병원비 청구를 하지 않고 몇달치를 한번에 현금으로 청구하셔서 당황했습니다... 원장님이 차분하게 환자의 상태를 설명해주셔서 좋았습니다.",
-      //   icon: MdLocalHospital,
-    },
-    {
-      name: "요양병원",
-      description:
-        "원무과에서 달마다 병원비 청구를 하지 않고 몇달치를 한번에 현금으로 청구하셔서 당황했습니다... 원장님이 차분하게 환자의 상태를 설명해주셔서 좋았습니다.",
-      //   icon: MdLocalHospital,
-    },
-  ];
   return (
     <ReviewContainer>
-      <Row justify="center">
-        <Col xs={24} md={16}>
-          <StyledTitle level={2}>
-            세상에 없던{"\n"}요양 플랫폼 케어조아,
-          </StyledTitle>
-          <StyledTitle level={2}>
-            지금 이순간에도 빠르게 달려가고 있어요
-          </StyledTitle>
-        </Col>
-      </Row>
+      <div
+        style={{
+          textAlign: "start",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
+        <div
+          style={{
+            fontSize: "22px",
+            whiteSpace: "pre-line",
+            fontWeight: "900",
+            lineHeight: "1.2",
+          }}
+        >{`세상에 없던
+            요양 플랫폼 케어조아,`}</div>
+        <div
+          style={{
+            fontSize: "22px",
+            whiteSpace: "pre-line",
+            fontWeight: "900",
+            lineHeight: "1.2",
+          }}
+        >{`지금 이순간에도 
+            빠르게 달려가고 있어요`}</div>
+      </div>
 
       <Row
         gutter={[30, 30]}
@@ -97,20 +68,22 @@ const Review = () => {
 const ReviewList = ({ name, description, icon }) => {
   return (
     <ReviewCard bordered={false}>
-      <IconContainer>{icon}</IconContainer>
-      <div>
-        <Title level={4} style={{ textAlign: "start", fontWeight: "bold" }}>
-          {name}
-        </Title>
+      <IconContainer>
+        <Icon component={icon} />
+      </IconContainer>
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
         <div
-          type="secondary"
+          style={{ textAlign: "start", fontWeight: "bold", fontSize: "18px" }}
+        >
+          {name}
+        </div>
+        <div
           style={{
-            display: "-webkit-box",
-            WebkitBoxOrient: "vertical",
-            WebkitLineClamp: 6,
-            overflow: "hidden",
-            textAlign: "start",
             fontSize: "14px",
+            whiteSpace: "normal",
+            textAlign: "start",
+            color: "#4a5568",
+            lineHeight: "1.4",
           }}
         >
           {description}
@@ -157,7 +130,7 @@ const ReviewScroll = styled.div`
   padding-bottom: 16px;
 `;
 
-const ReviewCard = styled(Card)`
+const ReviewCard = styled.div`
   min-width: 200px;
   min-height: 200px;
   background-color: #f5f5f5;
@@ -166,8 +139,7 @@ const ReviewCard = styled(Card)`
   color: black;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  justify-content: space-between;
+  gap: 8px;
 
   @media (min-width: 768px) {
     min-width: 250px;
@@ -180,8 +152,8 @@ const IconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   background-color: white;
   border-radius: 12px;
   font-size: 24px;

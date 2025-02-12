@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Row } from "antd";
-import Title from "antd/es/skeleton/Title";
+import { Image, Row } from "antd";
+import Title from "antd/es/typography/Title";
 
 const Service1 = () => (
   <ServiceContainer>
@@ -10,14 +10,24 @@ const Service1 = () => (
         {`케어조아는 전국서비스로,
         빠르게 확장하고 있어요.`}
       </Title>
-      <div style={{ fontSize: "16px", whiteSpace: "pre-line" }}>
+      <div
+        style={{
+          fontSize: "16px",
+          whiteSpace: "normal",
+          color: "#4a5568",
+          lineHeight: "1.4",
+        }}
+      >
         {`현재 케어조아는 일반회원과 요양시설 회원을
         전국의 모든 요양시설과 서비스 제공 업체와 상담 시스템을 구축하고 있습니다.`}
       </div>
     </ServiceTextContainer>
 
     <ImageWrapper>
-      {/* <Image src={장기요양} preview={false} /> */}
+      <Image
+        src={require("../../assets/landing/장기요양.png")}
+        preview={false}
+      />
     </ImageWrapper>
   </ServiceContainer>
 );
@@ -33,6 +43,7 @@ const ServiceTextContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
+  padding: 16px;
 `;
 
 const ImageWrapper = styled.div`

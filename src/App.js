@@ -121,8 +121,9 @@ const routers = {
   "/landing": {
     path: "/landing",
     hasHeader: false,
-    hasFooter: false,
+    hasFooter: true,
     element: <Landing />,
+    title: "랜딩",
   },
 };
 

@@ -1,31 +1,28 @@
-import { Button, Typography } from "antd";
+import Title from "antd/es/typography/Title";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CTA = () => {
-  const { Text, Title } = Typography;
   return (
     <Section>
       <Wrapper>
-        <Text style={{ color: "black", fontSize: "13px" }}>
+        <div style={{ color: "white", fontSize: "13px" }}>
           내 집처럼 편안하고 내가족처럼 밑고 맡길수 있는곳, <br />
           케어조아는 오늘도 우리 부모님이 노후를 편안하게 보내실수 있도록
           노력하겠습니다.
-        </Text>
+        </div>
         <Title
-          level={4}
+          level={2}
           style={{
-            fontWeight: "extrabold",
-            color: "black",
+            fontWeight: "900",
+            color: "white",
             whiteSpace: "pre-line",
           }}
         >
           요양시설 및 요양서비스 찾기는 케어조아와 함께하세요
         </Title>
-        <Link to="/login">
-          <StyledButton type="primary" size="large">
-            무료 상담하기
-          </StyledButton>
+        <Link to="/account/login" style={{ width: "100%" }}>
+          <StyledCard>무료 상담하기</StyledCard>
         </Link>
       </Wrapper>
     </Section>
@@ -34,11 +31,7 @@ const CTA = () => {
 
 const Section = styled.section`
   background-color: #3182ce;
-  padding: 8px 16px;
-
-  @media (min-width: 768px) {
-    padding: 12px 24px;
-  }
+  padding: 32px 16px;
 `;
 
 const Wrapper = styled.div`
@@ -53,12 +46,21 @@ const Wrapper = styled.div`
   }
 `;
 
-const StyledButton = styled(Button)`
-  font-weight: bold;
-  width: 100%;
-  max-width: 200px;
-  display: block;
+const StyledCard = styled.div`
+  background-color: #ff6347;
+  border-radius: 16px;
   text-align: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 16px 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
 `;
 
 export default CTA;

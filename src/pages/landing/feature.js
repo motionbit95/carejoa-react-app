@@ -1,43 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Row, Col, Typography } from "antd";
-import Title from "antd/es/skeleton/Title";
+import { Row, Col } from "antd";
+import { services } from "./data";
+import Title from "antd/es/typography/Title";
 
 const Feature = () => {
-  const services = [
-    {
-      name: "요양병원",
-      description: "병원수준의 의료 서비스 제공",
-      //   icon: MdLocalHospital,
-      color: "#40CF69",
-      bgcolor: "rgba(64, 207, 105, 0.2)",
-    },
-    {
-      name: "요양원",
-      description: "일상적인 돌봄과 지원",
-      //   icon: MdHealing,
-      color: "#3B6EFF",
-      bgcolor: "rgba(59, 110, 255, 0.2)",
-    },
-    {
-      name: "주야간보호",
-      description: "일상적인 돌봄 서비스 제공",
-      //   icon: MdHealthAndSafety,
-      color: "#FE6D6A",
-      bgcolor: "rgba(254, 109, 106, 0.2)",
-    },
-    {
-      name: "실버타운",
-      description: "일시적인 돌봄 제공",
-      //   icon: MdLocalHotel,
-      color: "#FFC001",
-      bgcolor: "rgba(255, 192, 1, 0.2)",
-    },
-  ];
-
   return (
     <FeatureSection>
-      <Title level={2} style={{ fontWeight: "bold" }}>
+      <Title level={4} style={{ fontWeight: "bold", marginTop: 0 }}>
         어디로 모셔야 할까요?
       </Title>
       <div style={{ fontSize: "16px", whiteSpace: "pre-line" }}>
@@ -51,7 +21,7 @@ const Feature = () => {
           {services.map((service) => (
             <ServiceItem key={service.name}>
               <IconWrapper bg={service.bgcolor} color={service.color}>
-                {service.icon}
+                <service.icon />
               </IconWrapper>
               <div style={{ fontSize: "14px", fontWeight: "500" }}>
                 {service.name}
@@ -60,22 +30,6 @@ const Feature = () => {
           ))}
         </ServiceContainer>
       </FeatureCard>
-
-      <Row gutter={[20, 20]} style={{ marginTop: "32px" }} justify="center">
-        {services.map((service) => (
-          <Col key={service.name} xs={24} sm={12} md={6}>
-            <ServiceItem
-              onClick={() => window.open("https://cafe.naver.com/pinkqy5cg")}
-            >
-              <IconWrapper bg="#f5f5f5">{service.icon}</IconWrapper>
-              <Title level={4} style={{ fontWeight: "500" }}>
-                {service.name}
-              </Title>
-              <div>{service.description}</div>
-            </ServiceItem>
-          </Col>
-        ))}
-      </Row>
     </FeatureSection>
   );
 };
@@ -93,16 +47,16 @@ const FeatureCard = styled.div`
   padding: 30px;
   background: linear-gradient(to right, #ffe875, #ffd24f);
   border-radius: 12px;
+  margin-top: 48px;
 `;
 
 const ServiceContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 10px 0px;
   background-color: white;
   border-radius: 12px;
-  gap: 20px;
 `;
 
 const ServiceItem = styled.div`
