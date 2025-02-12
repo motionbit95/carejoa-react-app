@@ -20,6 +20,7 @@ import {
 } from "./pages";
 import Write from "./pages/community/write";
 import Counseling from "./pages/_old/counsel/chat";
+import MapSearch from "./pages/search/ mapSearch";
 
 const routers = {
   "/account/login": {
@@ -103,6 +104,13 @@ const routers = {
     hasFooter: true,
     element: <Search />,
     title: "기관 검색",
+  },
+  "/mapsearch": {
+    path: "/mapsearch",
+    hasHeader: true,
+    hasFooter: false,
+    element: <MapSearch />,
+    title: "지도 검색",
   },
   "/estimate": {
     path: "/estimate",

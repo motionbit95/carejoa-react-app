@@ -58,7 +58,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, {
     swaggerOptions: {
-      docExpansion: "none", // 기본적으로 모든 API를 축소
+      docExpansion: "full", // 기본적으로 모든 API를 축소
       filter: true,
     },
   })

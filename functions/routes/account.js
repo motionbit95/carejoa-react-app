@@ -101,6 +101,14 @@ router.post("/signup", async function (req, res, next) {
 
 /**
  * @swagger
+ *
+ * components:
+ *   schemas:
+ *     LoginRequest:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
  * /users/login:
  *   post:
  *     tags:

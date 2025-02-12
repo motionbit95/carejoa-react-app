@@ -58,10 +58,6 @@ function Mypage(props) {
           name: "이벤트",
           onClick: () => navigate("/event"),
         },
-        {
-          id: "setting",
-          name: "설정",
-        },
       ],
     },
   ];

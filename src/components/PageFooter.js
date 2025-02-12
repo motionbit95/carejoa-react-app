@@ -1,47 +1,100 @@
-import { Layout, Typography } from "antd";
+import { Button, Col, Divider, Image, Row, Space } from "antd";
+import Link from "antd/es/typography/Link";
 import React from "react";
+import { MessageFilled } from "@ant-design/icons";
+
+import Talk from "../assets/Icon/talk.svg";
+import KakaoTalk from "../assets/Icon/bt_kakao.svg";
+import Blog from "../assets/Icon/blog.svg";
 import styled from "styled-components";
 
-const { Footer } = Layout;
-
-function PageFooter(props) {
+function Footer(props) {
   return (
-    <FooterContainer>
-      <CompanyInfo>
-        {`${process.env.REACT_APP_COMPANY_NAME} | 대표 : ${process.env.REACT_APP_COMPANY_CEO_NAME}
-고객센터 : ${process.env.REACT_APP_CUSTOMER_SERVICE_NUMBER}
-개선 및 문의사항 : ${process.env.REACT_APP_COMPANY_EMAIL}
-사업자등록번호 : ${process.env.REACT_APP_COMPANY_REGISTRATION_NUMBER}
-주소 : ${process.env.REACT_APP_COMPANY_ADDRESS}`}
-      </CompanyInfo>
-      <Copyright>
-        {`Copyright ©  ${process.env.REACT_APP_BRAND_NAME} All rights reserved.`}
-      </Copyright>
-    </FooterContainer>
+    <Row
+      gutter={[16, 32]}
+      style={{
+        maxWidth: "1024px",
+        margin: "0 auto",
+        paddingBlock: 32,
+        paddingInline: 16,
+        width: "100%",
+        boxSizing: "border-box",
+        backgroundColor: "#f5f5f5",
+      }}
+    >
+      <Col span={24}>
+        <Row gutter={[16, 16]}>
+          <Col span={24}>
+            <Image
+              src={"images/logo.svg"}
+              preview={false}
+              style={{
+                cursor: "pointer",
+                height: 24,
+                opacity: 0.7,
+              }}
+              onClick={() => {
+                window.location.href = "/";
+              }}
+            />
+          </Col>
+          <Col span={24}>
+            <Space direction={"vertical"}>
+              <Space>
+                <Text>(주) 케이뷰틱스</Text>
+                <Divider
+                  type="vertical"
+                  style={{
+                    height: 16,
+                  }}
+                />
+
+                <Text>대표이사 박대수</Text>
+              </Space>
+
+              <Text>서울특별시 종로구 케어조아로 5</Text>
+            </Space>
+          </Col>
+          <Col span={24}>
+            <Space direction={"vertical"}>
+              <Text>사업자등록번호 693-47-00786</Text>
+              <Text>통신판매업신고 제2024-경기부천-0123호</Text>
+            </Space>
+          </Col>
+          <Divider style={{ margin: 8 }} />
+          <Row gutter={[16, 48]} style={{ width: "100%" }}>
+            <Col span={24}>
+              <Space size={16} direction="vertical">
+                <Text style={{ fontWeight: "bold" }}>고객센터</Text>
+                <Button icon={<Image src={Talk} preview={false} width={16} />}>
+                  카톡으로 상담하기
+                </Button>
+                <Text>케어조아 고객센터는 카카오톡으로 운영중입니다.</Text>
+                <Space direction={"vertical"}>
+                  <Text>평일(월~금) : 10:00~17:00</Text>
+                  <Text>주말(토요일) : 13:00~17:00 (일요일, 공휴일 제외)</Text>
+                </Space>
+                <Text>procos@hanmail.net</Text>
+              </Space>
+            </Col>
+            <Col span={6}>
+              <Space size={8} direction="vertical">
+                <Text style={{ fontWeight: "bold" }}>SNS</Text>
+                <Space>
+                  <Image src={KakaoTalk} preview={false} width={32} />
+                  <Image src={Blog} preview={false} width={32} />
+                </Space>
+              </Space>
+            </Col>
+          </Row>
+        </Row>
+      </Col>
+    </Row>
   );
 }
 
-const FooterContainer = styled(Footer)`
-  background-color: var(--bg-body);
-  border-top: 1px solid var(--black-alpha-1);
-  padding: 16px;
-  gap: 4vh;
-  display: flex;
-  flex-direction: column;
-`;
-
-const CompanyInfo = styled(Typography)`
-  white-space: pre-line;
+const Text = styled.div`
   font-size: 12px;
-  color: var(--black-alpha-5);
-  line-height: 1.8;
 `;
 
-const Copyright = styled(Typography)`
-  font-size: 14px;
-  font-weight: 600;
-  text-align: right;
-  color: var(--black-alpha-9);
-`;
-
-export default PageFooter;
+export default Footer;
