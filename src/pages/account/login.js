@@ -1,12 +1,31 @@
-import { Button, Image, Input, Space, Typography } from "antd";
+import { Button, Form, Image, Input, message, Space, Typography } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import apiClient from "../../api";
 
 function Login(props) {
   const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [form] = Form.useForm();
+
+  const hadleLogin = async (values) => {
+    console.log(values);
+    await apiClient
+      .post(`/users/login`, values)
+      .then((response) => {
+        console.log(response);
+        messageApi.success("로그인 성공");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        messageApi.error("로그인 실패");
+      });
+  };
   return (
     <Center>
+      {contextHolder}
       <Space direction="vertical" size={40} style={{ display: "flex" }}>
         <center>
           <Image
@@ -18,26 +37,37 @@ function Login(props) {
             preview={false}
           />
         </center>
-        <Space
-          direction="vertical"
-          size={10}
-          style={{ display: "flex", width: "100%" }}
-        >
-          <Input
-            placeholder="이메일을 입력해주세요."
-            size="large"
-            type="email"
-            style={{ width: "100%" }}
-          />
-          <Input.Password
-            placeholder="비밀번호를 입력해주세요."
-            size="large"
-            style={{ width: "100%" }}
-          />
-          <Button size="large" type="primary" style={{ width: "100%" }}>
-            로그인
-          </Button>
-        </Space>
+        <Form form={form} onFinish={hadleLogin}>
+          <Space
+            direction="vertical"
+            size={10}
+            style={{ display: "flex", width: "100%" }}
+          >
+            <Form.Item name={"email"} style={{ margin: 0 }}>
+              <Input
+                placeholder="이메일을 입력해주세요."
+                size="large"
+                type="email"
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+            <Form.Item name={"password"} style={{ margin: 0 }}>
+              <Input.Password
+                placeholder="비밀번호를 입력해주세요."
+                size="large"
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+            <Button
+              size="large"
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+            >
+              로그인
+            </Button>
+          </Space>
+        </Form>
 
         <Space direction="vertical" size={10} style={{ width: "100%" }}>
           <Typography

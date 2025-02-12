@@ -7,14 +7,14 @@ const jwt = require("jsonwebtoken");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+  res.send("응답 성공");
 });
 
 /**
  * @swagger
  * tags:
  *   name: Users
- *   description: 유저 API
+ *   description: 사용자 API
  */
 
 /**
@@ -31,19 +31,19 @@ router.get("/", function (req, res, next) {
  *       properties:
  *         email:
  *           type: string
- *           description: The email of the user
+ *           description: 사용자의 이메일
  *           example: test1@example.com
  *         type:
  *           type: string
- *           description: The type of the user
+ *           description: 사용자의 유형
  *           example: person
  *         password:
  *           type: string
- *           description: The password of the user
+ *           description: 사용자의 비밀번호
  *           example: 1q2w3e4r!
  *         nickname:
  *           type: string
- *           description: The nickname of the user
+ *           description: 사용자의 닉네임
  *           example: John Doe
  *
  * /users/signup:
@@ -51,7 +51,7 @@ router.get("/", function (req, res, next) {
  *     tags:
  *       - Auth
  *     summary: 회원가입 API
- *     description: 신규 유저를 생성합니다.
+ *     description: 새로운 사용자를 생성합니다.
  *     requestBody:
  *       required: true
  *       content:
@@ -60,21 +60,18 @@ router.get("/", function (req, res, next) {
  *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
- *         description: Successfully created user
+ *         description: 사용자 생성 성공
  */
 router.post("/signup", async function (req, res, next) {
   try {
     const { email, type, password, nickname } = req.body;
 
-    // 필수 필드 확인
     if (!email || !type || !password || !nickname) {
       return res.status(400).json({
-        message:
-          "email, type, password, nickname, phoneNumber는 필수 항목입니다.",
+        message: "email, type, password, nickname은 필수 항목입니다.",
       });
     }
 
-    // UserModel 생성 및 저장
     const user = new UserModel({
       email,
       type,
@@ -83,7 +80,6 @@ router.post("/signup", async function (req, res, next) {
     });
     const createdUser = await user.create();
 
-    // 성공 응답
     res.status(201).json({
       message: "사용자가 성공적으로 생성되었습니다.",
       user: createdUser.toJSON(),
@@ -92,7 +88,7 @@ router.post("/signup", async function (req, res, next) {
     console.error("사용자 생성 중 오류:", error);
     res
       .status(500)
-      .json({ message: "사용자 생성 중 오류", error: error.message });
+      .json({ message: "사용자 생성 중 오류 발생", error: error.message });
   }
 });
 
@@ -100,52 +96,17 @@ router.post("/signup", async function (req, res, next) {
  * @swagger
  * tags:
  *   name: Auth
- *   description: 계정 API
+ *   description: 인증 API
  */
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     LoginRequest:
- *       type: object
- *       required:
- *         - email
- *         - password
- *       properties:
- *         email:
- *           type: string
- *           description: The email of the user
- *           example: test1@example.com
- *         password:
- *           type: string
- *           description: The password of the user
- *           example: 1q2w3e4r!
- *     LoginResponse:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           description: Response message
- *         user:
- *           type: object
- *           properties:
- *             uid:
- *               type: string
- *               description: The unique ID of the user
- *             email:
- *               type: string
- *               description: The email of the user
- *             type:
- *               type: string
- *               description: The type of the user
- *
  * /users/login:
  *   post:
  *     tags:
  *       - Auth
- *     summary: 로그인
- *     description: 이메일 로그인
+ *     summary: 로그인 API
+ *     description: 이메일을 사용하여 로그인합니다.
  *     requestBody:
  *       required: true
  *       content:
@@ -154,56 +115,45 @@ router.post("/signup", async function (req, res, next) {
  *             $ref: '#/components/schemas/LoginRequest'
  *     responses:
  *       200:
- *         description: Login successful
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/LoginResponse'
+ *         description: 로그인 성공
  *       401:
- *         description: Invalid credentials
+ *         description: 잘못된 인증 정보
  *       404:
- *         description: User not found
+ *         description: 사용자를 찾을 수 없음
  *       500:
- *         description: Internal server error
+ *         description: 서버 오류
  */
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 필수 필드 검증
     if (!email || !password) {
       return res
         .status(400)
         .json({ message: "email과 password는 필수 항목입니다." });
     }
 
-    // 사용자 조회
     const user = await UserModel.getUserByEmail(email);
-
     if (!user) {
       return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
     }
 
-    // 비밀번호 검증
     const isPasswordValid = await UserModel.verifyPassword(
       password,
       user.password
     );
-
     if (!isPasswordValid) {
       return res.status(401).json({ message: "잘못된 비밀번호입니다." });
     }
 
-    // JWT 토큰 생성
     const token = jwt.sign(
       { uid: user.uid, email: user.email },
       process.env.JWT_SECRET,
       {
-        expiresIn: "24h", // 토큰 만료 시간 (24시간)
+        expiresIn: "24h",
       }
     );
 
-    // 로그인 성공
     res.status(200).json({
       message: "로그인 성공",
       user: {
@@ -233,7 +183,7 @@ router.post("/login", async (req, res) => {
  *       properties:
  *         email:
  *           type: string
- *           description: User's email
+ *           description: 사용자의 이메일
  *           example: test1@example.com
  *     VerifyCodeRequest:
  *       type: object
@@ -243,10 +193,10 @@ router.post("/login", async (req, res) => {
  *       properties:
  *         email:
  *           type: string
- *           description: User's email
+ *           description: 사용자의 이메일
  *         code:
  *           type: string
- *           description: Verification code
+ *           description: 인증 코드
  *     ResetPasswordRequest:
  *       type: object
  *       required:
@@ -255,16 +205,16 @@ router.post("/login", async (req, res) => {
  *       properties:
  *         email:
  *           type: string
- *           description: User's email
+ *           description: 사용자의 이메일
  *         newPassword:
  *           type: string
- *           description: New password
+ *           description: 새로운 비밀번호
  *
  * /users/password/forgot:
  *   post:
  *     tags:
  *       - Auth
- *     summary: 비밀번호 찾기 - 인증코드 전송
+ *     summary: 비밀번호 찾기 - 인증 코드 전송
  *     requestBody:
  *       required: true
  *       content:
@@ -273,13 +223,13 @@ router.post("/login", async (req, res) => {
  *             $ref: '#/components/schemas/ForgotPasswordRequest'
  *     responses:
  *       200:
- *         description: Verification code sent
+ *         description: 인증 코드가 전송됨
  *
  * /users/password/verify:
  *   post:
  *     tags:
  *       - Auth
- *     summary: 비밀번호 찾기 - 인증코드 확인
+ *     summary: 비밀번호 찾기 - 인증 코드 확인
  *     requestBody:
  *       required: true
  *       content:
@@ -288,7 +238,7 @@ router.post("/login", async (req, res) => {
  *             $ref: '#/components/schemas/VerifyCodeRequest'
  *     responses:
  *       200:
- *         description: Code verified successfully
+ *         description: 인증 코드가 확인됨
  *
  * /users/password/reset:
  *   post:
@@ -303,7 +253,7 @@ router.post("/login", async (req, res) => {
  *             $ref: '#/components/schemas/ResetPasswordRequest'
  *     responses:
  *       200:
- *         description: Password reset successfully
+ *         description: 비밀번호가 성공적으로 재설정됨
  */
 // 비밀번호 찾기 - 인증 코드 요청
 router.post("/password/forgot", async (req, res) => {
@@ -390,8 +340,8 @@ router.post("/password/reset", async (req, res) => {
  *   put:
  *     tags:
  *       - Users
- *     summary: Update user's nickname
- *     description: Updates the user's nickname after checking for duplication.
+ *     summary: 사용자의 닉네임 변경
+ *     description: 닉네임 중복 확인 후 사용자의 닉네임을 변경합니다.
  *     security:
  *       - Bearer: []
  *     requestBody:
@@ -403,14 +353,14 @@ router.post("/password/reset", async (req, res) => {
  *             properties:
  *               newNickname:
  *                 type: string
- *                 description: The new nickname for the user.
+ *                 description: 사용자의 새로운 닉네임
  *     responses:
  *       200:
- *         description: Nickname updated successfully.
+ *         description: 닉네임이 성공적으로 변경됨.
  *       400:
- *         description: Invalid nickname or already taken.
+ *         description: 잘못된 닉네임이거나 이미 사용 중인 닉네임.
  *       500:
- *         description: Internal server error.
+ *         description: 서버 내부 오류.
  */
 router.put("/nickname", authenticateUser, async (req, res) => {
   try {

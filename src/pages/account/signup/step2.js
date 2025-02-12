@@ -110,7 +110,7 @@ const Step2 = (props) => {
         rules={[{ required: true, message: "비밀번호를 입력해주세요!" }]}
         label={<div>비밀번호</div>}
       >
-        <Input placeholder="비밀번호를 입력해주세요." size="large" />
+        <Input.Password placeholder="비밀번호를 입력해주세요." size="large" />
       </Form.Item>
       <Form.Item
         style={{ margin: "0" }}
@@ -118,7 +118,7 @@ const Step2 = (props) => {
         rules={[{ required: true, message: "비밀번호를 입력해주세요!" }]}
         label={<div>비밀번호 확인</div>}
       >
-        <Input placeholder="비밀번호를 확인해주세요." size="large" />
+        <Input.Password placeholder="비밀번호를 확인해주세요." size="large" />
       </Form.Item>
 
       <SearchModal

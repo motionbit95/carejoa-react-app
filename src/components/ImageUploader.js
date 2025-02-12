@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Space, Upload, message } from "antd";
 import axios from "axios";
 import { AiOutlinePicture } from "react-icons/ai";
+import apiClient from "../api";
 
 const ImageUploader = ({ onUpload }) => {
   const [fileList, setFileList] = useState([]);
@@ -14,7 +15,7 @@ const ImageUploader = ({ onUpload }) => {
       return new Promise((resolve, reject) => {
         reader.onload = async () => {
           const base64String = reader.result.split(",")[1]; // Base64 변환
-          const response = await axios.post("http://localhost:8088/upload", {
+          const response = await apiClient.post(`/upload`, {
             fileName: file.name,
             fileBase64: base64String,
           });
