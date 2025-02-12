@@ -78,6 +78,7 @@ const LandingHeader = () => {
           onClick={() => (window.location.href = "/")}
           src={"/images/logo.svg"}
           style={{ height: "32px", cursor: "pointer" }}
+          preview={false}
         />
         <Space style={{ alignItems: "center" }}>
           <Button
@@ -107,6 +108,7 @@ const LandingHeader = () => {
               onClick={() => (window.location.href = "/")}
               src={"/images/logo.svg"}
               style={{ height: "32px", cursor: "pointer" }}
+              preview={false}
             />
             <CloseOutlined style={{ cursor: "pointer" }} onClick={handleOpen} />
           </div>
