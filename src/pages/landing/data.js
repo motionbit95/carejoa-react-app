@@ -85,62 +85,86 @@ export const reviews = [
 export const BannerButtons = [
   {
     name: "지도검색",
-    icon: <Image src={require("../../assets/landing/icon1.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon1.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "지역검색",
-    icon: <Image src={require("../../assets/landing/icon2.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon2.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "제휴시설",
-    icon: <Image src={require("../../assets/landing/icon3.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon3.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "요양원",
-    icon: <Image src={require("../../assets/landing/icon4.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon4.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "요양병원",
-    icon: <Image src={require("../../assets/landing/icon5.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon5.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "주야간보호",
-    icon: <Image src={require("../../assets/landing/icon6.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon6.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "실버타운",
-    icon: <Image src={require("../../assets/landing/icon7.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon7.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "방문요양",
-    icon: <Image src={require("../../assets/landing/icon8.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon8.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "방문목욕",
-    icon: <Image src={require("../../assets/landing/icon9.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon9.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "양로원",
-    icon: <Image src={require("../../assets/landing/icon10.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon10.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "방문간호",
-    icon: <Image src={require("../../assets/landing/icon11.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon11.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
   {
     name: "단기보호",
-    icon: <Image src={require("../../assets/landing/icon12.png")} />,
+    icon: (
+      <Image preview={false} src={require("../../assets/landing/icon12.png")} />
+    ),
     link: "https://cafe.naver.com/pinkqy5cg",
   },
 ];

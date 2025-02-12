@@ -1,58 +1,63 @@
 import React from "react";
 import styled from "styled-components";
-import { Row, Col, Card } from "antd";
-import Title from "antd/es/skeleton/Title";
+import { Row, Col, Rate, Space } from "antd";
 import { reviews } from "./data";
 import Icon from "@ant-design/icons";
+import Title from "antd/es/typography/Title";
 
 const Review = () => {
   return (
     <ReviewContainer>
-      <div
-        style={{
-          textAlign: "start",
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "22px",
-            whiteSpace: "pre-line",
-            fontWeight: "900",
-            lineHeight: "1.2",
-          }}
-        >{`세상에 없던
-            요양 플랫폼 케어조아,`}</div>
-        <div
-          style={{
-            fontSize: "22px",
-            whiteSpace: "pre-line",
-            fontWeight: "900",
-            lineHeight: "1.2",
-          }}
-        >{`지금 이순간에도 
-            빠르게 달려가고 있어요`}</div>
-      </div>
+      <StyledTitleBox style={{}}>
+        <StyledTitleFont>{`세상에 없던
+            요양 플랫폼 케어조아,`}</StyledTitleFont>
+        <StyledTitleFont>{`지금 이순간에도 
+            빠르게 달려가고 있어요`}</StyledTitleFont>
+      </StyledTitleBox>
 
       <Row
         gutter={[30, 30]}
         justify="center"
         align="middle"
-        style={{ marginTop: 32 }}
+        style={{ marginTop: "40px", marginBottom: "40px" }}
       >
         <Col xs={24} md={12}>
-          {/* <RatingContainer>
-            <Text strong>회원 리뷰 평점</Text>
-            <Rating />
-            <ScoreText level={2}>4.9점</ScoreText>
-          </RatingContainer> */}
+          <RatingContainer>
+            <RatingFont>회원 리뷰 평점</RatingFont>
+            <CustomRate value={5} />
+            <Title
+              level={1}
+              style={{ color: "#42d950", fontWeight: "900", margin: "6px 0" }}
+            >
+              4.9점
+            </Title>
+          </RatingContainer>
         </Col>
         <Col xs={24} md={12}>
-          {/* {stats.map((stat, id) => (
-            <Stat key={id} {...stat} />
-          ))} */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <RatingContainer>
+              <RatingFont>누적 회원가입수</RatingFont>
+              <Title
+                level={2}
+                style={{
+                  color: "#42d950",
+                  fontWeight: "900",
+                  margin: "6px 0",
+                }}
+              >
+                400,000명+
+              </Title>
+            </RatingContainer>
+            <RatingContainer>
+              <RatingFont>누적 상담건수</RatingFont>
+              <Title
+                level={2}
+                style={{ color: "#42d950", fontWeight: "900", margin: "6px 0" }}
+              >
+                801,001건
+              </Title>
+            </RatingContainer>
+          </div>
         </Col>
       </Row>
 
@@ -77,17 +82,7 @@ const ReviewList = ({ name, description, icon }) => {
         >
           {name}
         </div>
-        <div
-          style={{
-            fontSize: "14px",
-            whiteSpace: "normal",
-            textAlign: "start",
-            color: "#4a5568",
-            lineHeight: "1.4",
-          }}
-        >
-          {description}
-        </div>
+        <ReviewFont>{description}</ReviewFont>
       </div>
     </ReviewCard>
   );
@@ -99,19 +94,46 @@ const ReviewContainer = styled.div`
   color: white;
   text-align: center;
 `;
-
-const StyledTitle = styled.div`
-  font-size: 36px;
-  font-weight: 800;
-  line-height: 1.2;
+const StyledTitleBox = styled.div`
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   white-space: pre-line;
+
+  @media (min-width: 768px) {
+    text-align: center;
+    white-space: normal;
+  }
 `;
 
-const RatingContainer = styled(Card)`
+const StyledTitleFont = styled.div`
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.2;
+
+  @media (min-width: 768px) {
+    font-size: 32px;
+  }
+`;
+
+const RatingContainer = styled.div`
   background: transparent;
   border: none;
   text-align: left;
   color: white;
+`;
+
+const RatingFont = styled.div`
+  color: #4a5568;
+  font-size: 12px;
+  margin-bottom: 6px;
+`;
+
+const CustomRate = styled(Rate)`
+  .ant-rate-star {
+    color: #42d950;
+  }
 `;
 
 const ScoreText = styled.div`
@@ -164,6 +186,14 @@ const IconContainer = styled.div`
     height: 64px;
     font-size: 32px;
   }
+`;
+
+const ReviewFont = styled.div`
+  font-size: 14px;
+  color: #4a5568;
+  white-space: normal;
+  text-align: start;
+  line-height: 1.4;
 `;
 
 export default Review;

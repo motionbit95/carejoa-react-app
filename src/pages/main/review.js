@@ -1,38 +1,16 @@
 import { Image, Space, Tag } from "antd";
 import Title from "antd/es/typography/Title";
 import styled from "styled-components";
+import { reviews } from "./data";
 
 export const Review = (props) => {
-  const items = [
-    {
-      id: 1,
-      name: "다나움요양병원",
-      address: "서울특별시 송파구",
-      tag: ["상실", "상실"],
-      image: require("../../assets/dummy/advertise.png"),
-    },
-    {
-      id: 2,
-      name: "다나움요양병원",
-      address: "서울특별시 송파구",
-      tag: ["상실", "상실"],
-      image: require("../../assets/dummy/advertise.png"),
-    },
-    {
-      id: 3,
-      name: "다나움요양병원",
-      address: "서울특별시 송파구",
-      tag: ["상실", "상실"],
-      image: require("../../assets/dummy/advertise.png"),
-    },
-  ];
   return (
     <Container>
       <Title level={4} style={{ fontWeight: "900", padding: "0px 16px" }}>
         {props.title}
       </Title>
       <ReviewScroll>
-        {items.map((review, index) => (
+        {reviews.map((review, index) => (
           <ReviewList key={index} {...review} />
         ))}
       </ReviewScroll>
@@ -43,7 +21,7 @@ export const Review = (props) => {
 const ReviewList = ({ name, address, tag, image }) => {
   return (
     <ReviewCard bordered={false}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+      <Column style={{ gap: "12px" }}>
         <Image
           style={{
             backgroundColor: "#D9D9D9",
@@ -53,35 +31,16 @@ const ReviewList = ({ name, address, tag, image }) => {
           }}
           src={image}
         />
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-          <div
-            style={{
-              fontSize: "14px",
-              fontWeight: "bold",
-              textAlign: "start",
-              lineHeight: "1.4",
-            }}
-          >
-            {name}
-          </div>
-          <div
-            style={{
-              fontSize: "12px",
-              whiteSpace: "normal",
-              textAlign: "start",
-              color: "#4a5568",
-              lineHeight: "1.4",
-            }}
-          >
-            {address}
-          </div>
+        <Column style={{ gap: "4px" }}>
+          <ReviewName>{name}</ReviewName>
+          <ReviewAddress>{address}</ReviewAddress>
           <Space size="small" wrap>
             {tag.map((tag, index) => (
               <TagItem key={index}>{tag}</TagItem>
             ))}
           </Space>
-        </div>
-      </div>
+        </Column>
+      </Column>
     </ReviewCard>
   );
 };
@@ -92,6 +51,11 @@ const Container = styled.div`
   margin: auto;
   padding: 16px 0px;
   background-color: white;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ReviewScroll = styled.div`
@@ -130,4 +94,18 @@ const TagItem = styled(Tag)`
   line-height: 1;
   margin-right: 0px;
   border-radius: 6px;
+`;
+
+const ReviewName = styled.div`
+  font-size: "14px",
+  fontWeight: "bold",
+  TextAlign: "start",
+  lineHeight: "1.4",
+`;
+
+const ReviewAddress = styled.div`
+  font-size: "12px",
+  TextAlign: "start",
+  lineHeight: "1.4",
+  color: "#4a5568",
 `;

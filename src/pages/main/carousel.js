@@ -1,17 +1,8 @@
 import { Carousel, Image } from "antd";
 import styled from "styled-components";
+import { images } from "./data";
 
 export const EventCarousel = () => {
-  const images = [
-    {
-      image: require("../../assets/dummy/Coupon1.png"),
-      alt: "coupon1",
-    },
-    {
-      image: require("../../assets/dummy/Coupon1.png"),
-      alt: "coupon2",
-    },
-  ];
   return (
     <Container>
       <Carousel autoplay>

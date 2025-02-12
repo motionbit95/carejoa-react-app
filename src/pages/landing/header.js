@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const LandingHeader = () => {
+  // 더미 - 유저
   const user = {
     id: 1,
     name: "김철수",
@@ -23,6 +24,7 @@ const LandingHeader = () => {
   };
 
   const Logout = () => {
+    // 적용 필요
     console.log("로그아웃");
   };
 
@@ -35,16 +37,15 @@ const LandingHeader = () => {
     setOpen(false); // 메뉴를 닫음
   };
 
+  // 로그인 되었을 때 메뉴 리스트
   const LoginItem = [
     {
       path: "/mypage",
       label: "마이페이지",
-      // icon: <MailOutlined />,
     },
     {
       path: "/counseling",
       label: "상담신청",
-      // icon: < />
     },
     {
       path: "/logout",
@@ -53,21 +54,19 @@ const LandingHeader = () => {
     },
   ];
 
+  // 로그인이 안되어 있을 때 메뉴 리스트
   const LogoutItem = [
     {
       path: "/counseling",
       label: "상담신청",
-      // icon: < />
     },
     {
       path: "/account/login",
       label: "로그인",
-      // icon: < />
     },
     {
       path: "/account/signup",
       label: "회원가입",
-      // icon: < />
     },
   ];
 
@@ -105,11 +104,8 @@ const LandingHeader = () => {
         height={"auto"}
         style={{ paddingTop: "64px" }}
       >
-        <div
+        <Column
           style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
             gap: "8px",
           }}
         >
@@ -140,7 +136,7 @@ const LandingHeader = () => {
               ))}
             </Menu>
           )}
-        </div>
+        </Column>
       </Drawer>
     </>
   );
@@ -156,6 +152,11 @@ const HeaderContainer = styled(Header)`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--black-alpha-1);
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export default LandingHeader;

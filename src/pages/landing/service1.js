@@ -10,17 +10,10 @@ const Service1 = () => (
         {`케어조아는 전국서비스로,
         빠르게 확장하고 있어요.`}
       </Title>
-      <div
-        style={{
-          fontSize: "16px",
-          whiteSpace: "normal",
-          color: "#4a5568",
-          lineHeight: "1.4",
-        }}
-      >
+      <Description>
         {`현재 케어조아는 일반회원과 요양시설 회원을
         전국의 모든 요양시설과 서비스 제공 업체와 상담 시스템을 구축하고 있습니다.`}
-      </div>
+      </Description>
     </ServiceTextContainer>
 
     <ImageWrapper>
@@ -79,11 +72,11 @@ const ButtonItem = styled.div`
   cursor: pointer;
 `;
 
-const IconWrapper = styled.div`
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  font-size: 32px;
+const Description = styled.div`
+  font-size: 16px;
+  line-height: 1.4;
+  white-space: normal;
+  color: #4a5568;
 `;
 
 export default Service1;

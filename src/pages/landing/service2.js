@@ -14,14 +14,14 @@ const Service2 = () => (
     <Row gutter={[12, 12]}>
       <Col span={12}>
         <ServiceBox bgColor="#0C0228">
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <Column style={{ gap: "8px" }}>
             <TitleText color="white">빠른 상담 서비스</TitleText>
             <StyledText>
               현재 케어조아는 개인, 병원 회원으로 운영되고 있으며, 위치 기반
               가까운 회원과 병원을 매칭해드리고 있어요!
             </StyledText>
-          </div>
-          <div style={{ display: "flex", position: "relative" }}>
+          </Column>
+          <div>
             <Image
               src={require("../../assets/landing/map.png")}
               preview={false}
@@ -73,15 +73,17 @@ const ServiceBox = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 8px;
 
   @media (min-width: 768px) {
     padding: 24px;
   }
 `;
 
-// 지도 이미지 스타일
-const MapContainer = styled.div``;
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 // 텍스트 스타일
 const TitleText = styled.div`
